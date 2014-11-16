@@ -1,7 +1,7 @@
 {
   "name": "RadReveal",
   "version": "0.0.0",
-  "description": "Radical addons for Reveal.js",
+  "description": "A JavaScript library to help you extend the Reveal.js - the HTML Presentation Framework",
   "repository": {
     "type": "git",
     "url": "TODO"
