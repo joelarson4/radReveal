@@ -36,6 +36,7 @@
                         <a href="http://lab.hakim.se/reveal-js/">Reveal.js - the HTML Presentation Framework</a>.
                     </p>
                 </section>
+                
                 <section>
                     <h2>Reveal.js rocks!</h2>
                     <ul>
@@ -43,6 +44,7 @@
                         <li class="fragment">I love Reveal.js because it is hackable.</li>
                     </ul>
                 </section>
+                
                 <section>
                     <h2>...but</h2>
                     <ul>
@@ -50,6 +52,7 @@
                         <li class="fragment">Or if they are, they aren't sharing!</li>
                     </ul>
                 </section>
+                
                 <section>
                     <h2>The solution? <span class="fragment">RadReveal</span></h2>
                     <ul>
@@ -59,46 +62,170 @@
                         <li class="fragment">Easily integrate Testing and JsDoc.</li>
                     </ul>
                 </section>
+
                 <section>
                     <h2>Simple example</h2>
-                    XXX
+                    <p>What does an add-on look like?</p>
+                    <div class="fragment">
+                        <code>rad-example.js</code>
+                        <pre><code>RadReveal.register({
+  name: 'example',
+  init: function(radConfig, slides) {
+    for(var s = 0, len = slides.length; s < len; s++) {
+      slides[s].className += ' ' + radConfig.addClass;
+    }
+  }
+});</code></pre>
+                    </div>
                 </section>
+
                 <section>
-                    <h2>Demonstrated with the <code>functionRunner</code> add-on.</h2>
+                    <h2>Simple example</h2>
+                    <p>How is it loaded?</p>
+                    <pre><code>RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
+  ...normal Reveal configuration goes here
+  
+  dependencies: [
+    { 
+      src: 'rad-example.js', 
+      radName: 'example',
+      radConfig: { addClass: 'example' } 
+    }
+    ...other plugins go here
+  ]
+});</code></pre>
+                </section>
+
+                <section>
+                    <h2>Simple example</h2>
+                    <p>How does that work?</p>
+
+                    <ol>
+                        <li class="fragment"><code>RadReveal.initialize</code> calls <code>Reveal.initialize</code>.</li>
+                        <li class="fragment"><code>Reveal.initialize</code> loads dependencies, including <code>rad-example.js</code>.</li>
+                        <li class="fragment">The example add-on registers itself with an <code>init</code> function.</li>
+                        <li class="fragment">After Reveal is initialized, RadReveal triggers example's <code>init</code> function.</li>
+                        <li class="fragment">RadReveal passes in the <code>radConfig</code> value and all slides defined.</li>
+                        <li class="fragment">example add-on does whatever it wants.</li>
+                        <li class="fragment">In this example, the add-on appends a class to every slide.</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Beyond <code>init</code></h2>
+                    <p>Run your code only for certain slides with an attribute by using <code>attributeEventListeners</code>.</p>
+                    <pre><code>RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      setup: someFunction
+    }
+  }
+});</code></pre>
+                    <p>Each slide with the <code>data-rad-example</code> attribute will have <code>someFunction</code> called
+                        after RadReveal initialization completes.</p>
+
+                </section>
+
+                <section data-transition="none">
+                    <h2>Beyond <code>init</code></h2>
+                    <p>The listener function is called with four arguments:</p>
+                    <ul>
+                        <li class="fragment"><code>attrVal</code>, the value of the attribute for this slide.</li>
+                        <li class="fragment"><code>slideObj</code>, an object representing the slide.</li>
+                        <li class="fragment"><code>event</code>, the event object.</li>
+                        <li class="fragment"><code>radEventName</code>, the name of the event.</li>
+                    </ul>
+
+                </section>
+
+                <section data-transition="none">
+                    <h2>Beyond <code>init</code></h2>
+                    <p>So you could use this to do something to the slide element.  For example, we could add a class based 
+                        on the value of the attribute.</p>
+                    <pre><code>function addTheClass(attrVal, slideObj, event, radEventName) {
+  slideObj.element.className += ' ' + attrVal;
+}
+
+RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      setup: addTheClass
+    }
+  }
+});</code></pre>
+                </section>
+
+                <section data-transition="none">
+                    <h2>Beyond <code>init</code></h2>
+                    <p>So this slide:</p>
+                    <pre><code>&lt;section data-rad-example="radicalDude"&gt;</code></pre>
+                    <div class="fragment">
+                        <p>would end up having an additional class<br>of <code>radicalDude</code>
+                            added to it:</p>
+                        <pre><code>&lt;section data-rad-example="radicalDude" class="radicalDude"&gt;</code></pre>
+                    </div>
+                    <p class="fragment">which is a silly example but illustrates the point.</p>
+                </section>
+
+                <section>
+                    <h2>When arriving at a slide</h2>
+                    <p>You can also register to run something on showing or hiding a slide with an attribute.</p>
+                    <pre><code>RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      shown: anotherFunction,
+      hidden: andAnotherFunction
+    }
+  }
+});</code></pre>
+                </section>
+
+                <section>
+                    <h1>a demo</h1>
+                </section>
+
+                <section>
+                    <h2>The <code>functionRunner</code><br>add-on.</h2>
                     <p>
                         <code>functionRunner</code> is a simple add-on that triggers a function to run for
                         any slide whose <code>section</code> tag has a
                         <br><code>data-rad-functionrunner-{eventName}</code> attribute.
                     </p>
                 </section>
+
                 <section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
                     <h2>Run something on <code>setup</code></h2>
                     <p>This slide has a <code>data-rad-functionrunner-setup</code> attr:</p>
                     <pre><code>&lt;section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'&gt;</code></pre>
                     <p>and the page has a (global) function defined:</p>
                     <pre><code>var bar = {
-    value: 'Hello world!',
-    baz: function(slideObj, event, radEventName) {
-        var span = document.createElement('span');
-        span.innerHTML = radEventName + ': ' + this.value;
-        slideObj.element.appendChild(span);
-    }
+  value: 'Hello world!',
+  baz: function(slideObj, event, radEventName) {
+    var span = document.createElement('span');
+    span.innerHTML = radEventName + ': ' + this.value;
+    slideObj.element.appendChild(span);
+  }
 }                    </code></pre>
                     <p>which together results in this text being added to the slide once:</p>
                 </section>
+
                 <section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }' >
                     <h2>Run when slide <code>shown</code></h2>
                     <p>This slide has a <code>data-rad-functionrunner-shown</code> attr:</p>
                     <pre><code>&lt;data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'&gt;</code></pre>
                     <p>and the page has a (global) function defined:</p>
                     <pre><code>function foo(arg0, arg1, slideObj, event, radEventName) {
-    var span = document.createElement('span');
-    span.className = 'functionRunnerAdded';
-    span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
-    slideObj.element.appendChild(span);
+  var span = document.createElement('span');
+  span.className = 'functionRunnerAdded';
+  span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
+  slideObj.element.appendChild(span);
 }                   </code></pre>
                     <p>which results in appending to the slide every time it is shown:</p>
                 </section>
+                
                 <section data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "3"] }' >
                     <h2>Run when slide <code>hidden</code></h2>
                     <p>This slide has a <code>data-rad-functionrunner-hidden</code> attr:</p>
@@ -106,10 +233,12 @@
                     <p>and you probably remember the <code>foo</code> function from the last slide.</p>
                     <p>If you go to the next slide and then come back, you should see something appended to the page here:</p>
                 </section>
+                
                 <section>
                     <h2>Now go back...</h2>
                     <p>Unless you already did that, then please go forward</p>
                 </section>
+                
                 <section>
                     <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 1"] }'>
                         <h2>Inner slide</h2>
@@ -126,13 +255,14 @@
                         <p>(now go forward/right)</p>
                     </section>
                 </section>
+                
                 <section data-rad-functionrunner-setup="null">
                     <h2>Fragment support</h2>
                     <p>The first fragment on this slide has these attributes:</p>
                     <pre><code class="smaller">&lt;li class="fragment" 
-    data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
-    data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
-    data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
+  data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
+  data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
+  data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
                     <p>You will see the results as you proceed:</p>
                     <ul>
                         <li class="fragment" 
