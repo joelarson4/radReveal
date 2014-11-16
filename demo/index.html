@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <title>RadReveal core demo</title>
+
+        <meta name="description" content="RadReveal core demo, demonstrating functionrunner">
+        <meta name="author" content="Joe Larson">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+        <style>
+            .reveal code { color: #468; }
+            .reveal pre { padding: 0.33em; }
+            .functionRunnerAdded { color: green; }
+        </style>
+    </head>
+
+    <body>
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>RadReveal</h1>
+                    <h2>
+                        <u>R</u>eveal.js <u>ad</u>d-ons
+                    </h2>
+                    <p>
+                        A clean, testable way of creating and publishing reusable extensions
+                        for the Reveal.js slideshow library.
+                    </p>
+                </section>
+                <section>
+                    <h2>Demonstrated with the <code>functionRunner</code> add-on.</h2>
+                    <p>
+                        <code>functionRunner</code> helps you run a function against
+                        any slide with a <code>data-rad-functionrunner-{eventName}</code>
+                        attribute.
+                    </p>
+                </section>
+                <section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
+                    <h2>Run something on <code>setup</code></h2>
+                    <p>This slide has a <code>data-rad-functionrunner-setup</code> attr:</p>
+                    <pre><code>&lt;section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'&gt;</code></pre>
+                    <p>and the page has a (global) function defined:</p>
+                    <pre><code>var bar = {
+    value: 'Hello world!',
+    baz: function(slideObj, event, radEventName) {
+        var span = document.createElement('span');
+        span.innerHTML = radEventName + ': ' + this.value;
+        slideObj.element.appendChild(span);
+    }
+}                    </code></pre>
+                    <p>which together results in this being added to the slide once:</p>
+                </section>
+                <section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }' >
+                    <h2>Run when slide <code>shown</code></h2>
+                    <p>This slide has a <code>data-rad-functionrunner-shown</code> attr:</p>
+                    <pre><code>&lt;data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'&gt;</code></pre>
+                    <p>and the page has a (global) function defined:</p>
+                    <pre><code>function foo(arg0, arg1, slideObj, event, radEventName) {
+    var span = document.createElement('span');
+    span.className = 'functionRunnerAdded';
+    span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
+    slideObj.element.appendChild(span);
+}                   </code></pre>
+                    <p>which results in appending to the slide every time it is shown:</p>
+                </section>
+                <section data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "3"] }' >
+                    <h2>Run when slide <code>hidden</code></h2>
+                    <p>This slide has a <code>data-rad-functionrunner-hidden</code> attr:</p>
+                    <pre><code>&lt;data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "3"] }'&gt;</code></pre>
+                    <p>and you probably remember the <code>foo</code> function from the last slide.</p>
+                    <p>If you go to the next slide and then come back, you should see something appended to the page here:</p>
+                </section>
+                <section>
+                    <h2>Now go back...</h2>
+                    <p>Unless you already did that, then please go forward</p>
+                </section>
+                <section>
+                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 1"] }'>
+                        <h2>Inner slide</h2>
+                        <p>You can use the same attributes on inner/vertical slides:</p>
+                    </section>
+                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 2"] }'
+                            data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "inner 2"] }'
+                            data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "inner 2"] }'>
+                        <h2>Second inner slide</h2>
+                    </section>
+                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 3"] }'>
+                        <h2>Third inner slide</h2>
+                    </section>
+                </section>
+                <section data-rad-functionrunner-setup="null">
+                    <h2>Fragment support</h2>
+                    <p>You can also add attributes to fragments.</p>
+                    <p>The next fragment has these attributes:</p>
+                    <pre><code>&lt;li class="fragment" 
+    data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
+    data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
+    data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
+                    <p>You will see the results as you proceed:</p>
+                    <ul>
+                        <li class="fragment" 
+                            data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
+                            data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
+                            data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'>
+                            Apple</li>
+                        <li class="fragment">Banana</li>
+                        <li class="fragment">Cherry</li>
+                    </ul>
+                </section>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+        <script src="plugin/radReveal/rad.js"></script>
+
+        <script>
+            function foo(arg0, arg1, slideObj, event, radEventName) {
+                var ele = document.createElement('p');
+                ele.className = 'functionRunnerAdded';
+                ele.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
+                slideObj.element.appendChild(ele);
+            }
+
+            var bar = {
+                value: 'Hello world!',
+                baz: function(slideObj, event, radEventName) {
+                    var ele = document.createElement('p');
+                    ele.className = 'functionRunnerAdded';
+                    ele.innerHTML = radEventName + ': ' + this.value;
+                    slideObj.element.appendChild(ele);
+                }
+            }
+
+            function biff(slideObj, event, radEventName) {
+                slideObj.element.setAttribute('data-testing-functionrunner-fillslides', 'true');
+            }
+        </script>
+
+        <script>
+            RadReveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'plugin/rad-functionRunner/functionRunner.js', radName: 'functionRunner', radConfig: { 
+                        fillSlides: { setup: { "func" : "biff" } }
+                    } },
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+            head.js('../test/maybeDemoTest.js');
+        </script>
+    </body>
+</html>
