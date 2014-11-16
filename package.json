@@ -12,8 +12,9 @@
     "gulp-rename": "~1.2.0",
     "gulp": "~3.8.9",
     "gulp-mocha": "~1.1.1",
-    "chai": "~1.9.2",
-    "gulp-mocha-phantomjs": "~0.5.1"
+    "chai": "~1.10.0",
+    "gulp-mocha-phantomjs": "~0.5.1",
+    "mocha": "~2.0.1"
   },
   "licenses": [
     {
