@@ -17,6 +17,7 @@
             .reveal code { color: #468; }
             .reveal pre { padding: 0.33em; }
             .functionRunnerAdded { color: green; }
+            .reveal code.smaller { font-size: 0.85em; }
         </style>
     </head>
 
@@ -31,15 +32,43 @@
                         <u>R</u>eveal.js <u>ad</u>d-ons
                     </h2>
                     <p>
-                        A JavaScript library to help you extend the <a href="http://lab.hakim.se/reveal-js/">Reveal.js - the HTML Presentation Framework</a>.
+                        A JavaScript library to help you extend the 
+                        <a href="http://lab.hakim.se/reveal-js/">Reveal.js - the HTML Presentation Framework</a>.
                     </p>
+                </section>
+                <section>
+                    <h2>Reveal.js rocks!</h2>
+                    <ul>
+                        <li>Web Developers love Reveal.js.</li>
+                        <li class="fragment">I love Reveal.js because it is hackable.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>...but</h2>
+                    <ul>
+                        <li class="fragment">But not a lot of people customize or extend it.</li>
+                        <li class="fragment">Or if they are, they aren't sharing!</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>The solution? <span class="fragment">RadReveal</span></h2>
+                    <ul>
+                        <li class="fragment">Makes customizing Reveal.js easy.</li>
+                        <li class="fragment">Attach behaviors to slides using data attributes.</li>
+                        <li class="fragment">Encourages small, shareable packages.</li>
+                        <li class="fragment">Easily integrate Testing and JsDoc.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Simple example</h2>
+                    XXX
                 </section>
                 <section>
                     <h2>Demonstrated with the <code>functionRunner</code> add-on.</h2>
                     <p>
-                        <code>functionRunner</code> helps you run a function against
-                        any slide with a <code>data-rad-functionrunner-{eventName}</code>
-                        attribute.
+                        <code>functionRunner</code> is a simple add-on that triggers a function to run for
+                        any slide whose <code>section</code> tag has a
+                        <br><code>data-rad-functionrunner-{eventName}</code> attribute.
                     </p>
                 </section>
                 <section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
@@ -55,7 +84,7 @@
         slideObj.element.appendChild(span);
     }
 }                    </code></pre>
-                    <p>which together results in this being added to the slide once:</p>
+                    <p>which together results in this text being added to the slide once:</p>
                 </section>
                 <section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }' >
                     <h2>Run when slide <code>shown</code></h2>
@@ -84,22 +113,23 @@
                 <section>
                     <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 1"] }'>
                         <h2>Inner slide</h2>
-                        <p>You can use the same attributes on inner/vertical slides:</p>
+                        <p>You can use the same attributes on inner/vertical slides (hit the down arrow this time):</p>
                     </section>
                     <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 2"] }'
                             data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "inner 2"] }'
                             data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "inner 2"] }'>
                         <h2>Second inner slide</h2>
+                        <p>(down again)</p>
                     </section>
                     <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 3"] }'>
                         <h2>Third inner slide</h2>
+                        <p>(now go forward/right)</p>
                     </section>
                 </section>
                 <section data-rad-functionrunner-setup="null">
                     <h2>Fragment support</h2>
-                    <p>You can also add attributes to fragments.</p>
-                    <p>The next fragment has these attributes:</p>
-                    <pre><code>&lt;li class="fragment" 
+                    <p>The first fragment on this slide has these attributes:</p>
+                    <pre><code class="smaller">&lt;li class="fragment" 
     data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
     data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
     data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
@@ -109,9 +139,9 @@
                             data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
                             data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
                             data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'>
-                            Apple</li>
-                        <li class="fragment">Banana</li>
-                        <li class="fragment">Cherry</li>
+                            First item</li>
+                        <li class="fragment">Second item - now go back twice and forward</li>
+                        <li class="fragment">Last item</li>
                     </ul>
                 </section>
         </div>
