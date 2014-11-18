@@ -1,3 +1,7 @@
+/**
+  @module RadReveal
+*/
+
 (function() { 'use strict';
     var config; //reveal + rad config
     var addons = []; //all the addons
@@ -14,8 +18,14 @@
         fragmentHidden: {}
     };
 
-    /** Called by addons to register themselves
-     *
+    /** Called by add-ons to register themselves.
+     * 
+     * @param {object} addon - an object representing this add-on, which must contain the following properties:
+     * @param {string} addon.name - the name of the add-on, which must match the `radName` value used when loaded as a dependency
+     * @param {function=} addon.init - an optional function called when the add on is registered, which is passed two arguments: the 
+     *     `radConfig` value used when loaded as a dependency (if any), and an array of all the slide objects.
+     * @param {object=} addon.attributeEventListeners - an optional hash of attribute names, each mapped to an object with event names keyed 
+     *     to functions.
      */
     function register(addon) {
         //first find the addons config from the dependencies array
@@ -25,7 +35,7 @@
                 addonConfig = config.dependencies[di].radConfig;
             }
         };
-        addon.init(addonConfig, allSlideElements);
+        addon.init(addonConfig, allSlideObjs);
 
         addon.attributeEventListeners = addon.attributeEventListeners || [];
 
@@ -80,7 +90,7 @@
         });
     }
 
-    /**
+    /** xxx
      *
      */
     function handlerClosure(handler, attrVal, slideObj, radEventName) {
@@ -89,7 +99,7 @@
         };
     }
 
-    /**
+    /** xxx
      *
      */
     function slideSetup(slideElement, si) {

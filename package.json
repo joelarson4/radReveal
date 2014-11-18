@@ -14,7 +14,8 @@
     "gulp-mocha": "~1.1.1",
     "chai": "~1.10.0",
     "gulp-mocha-phantomjs": "~0.5.1",
-    "mocha": "~2.0.1"
+    "mocha": "~2.0.1",
+    "jsdox": "~0.4.3"
   },
   "licenses": [
     {
