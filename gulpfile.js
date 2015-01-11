@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
+var shell = require('gulp-shell');
 
 gulp.task('default', ['build']);
 
@@ -18,7 +19,8 @@ gulp.task('build', function() {
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir))
-        .pipe(gulp.dest(demodir));
+        .pipe(gulp.dest(demodir))
+        .pipe(shell([ 'jsdox --output . src' ]));
 });
 
 gulp.task('functionRunner', function() {

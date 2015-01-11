@@ -1,5 +1,6 @@
 /** 
  * @module RadReveal
+ * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
  */
 (function() { 'use strict';
     var config; //reveal + rad config

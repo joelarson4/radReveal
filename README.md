@@ -1,7 +1,7 @@
 RadReveal
 =========
 
-#This is not quite ready to use.  Check back soon!#
+#This is not quite ready to use.  Check back soon!
 
 **Reveal.js add-ons: a JavaScript library to help you extend [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).**
 
@@ -20,6 +20,10 @@ RadReveal provides these benefits.
 * Makes customizing Reveal.js easy.
 * Attach behaviors to slides using data attributes.
 * Encourages small, shareable packages.
+
+## API JsDoc for RadReveal
+
+You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/rad.md).
 
 ## Simple example
 
