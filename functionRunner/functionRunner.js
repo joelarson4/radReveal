@@ -1,7 +1,7 @@
 (function() {
     var config;
 
-    function init(inputConfig, allSlideObjs) {
+    function initialize(inputConfig, allSlideObjs) {
         config = inputConfig || {};
 
         if(config.fillSlides) {
@@ -45,7 +45,7 @@
 
     RadReveal.register({
         name: 'functionRunner',
-        init: init,
+        initialize: initialize,
         attributeEventListeners: {
             'data-rad-functionrunner-setup': {
                 setup: runner

@@ -70,7 +70,7 @@
                         <code>rad-example.js</code>
                         <pre><code>RadReveal.register({
   name: 'example',
-  init: function(radConfig, slides) {
+  initialize: function(radConfig, slides) {
     for(var s = 0, len = slides.length; s < len; s++) {
       slides[s].className += ' ' + radConfig.addClass;
     }
@@ -103,8 +103,8 @@
                     <ol>
                         <li class="fragment"><code>RadReveal.initialize</code> calls <code>Reveal.initialize</code>.</li>
                         <li class="fragment"><code>Reveal.initialize</code> loads dependencies, including <code>rad-example.js</code>.</li>
-                        <li class="fragment">The example add-on registers itself with an <code>init</code> function.</li>
-                        <li class="fragment">After Reveal is initialized, RadReveal triggers example's <code>init</code> function.</li>
+                        <li class="fragment">The example add-on registers itself with an <code>initialize</code> function.</li>
+                        <li class="fragment">After Reveal is initialized, RadReveal triggers example's <code>initialize</code> function.</li>
                         <li class="fragment">RadReveal passes in the <code>radConfig</code> value and all slides defined.</li>
                         <li class="fragment">example add-on does whatever it wants.</li>
                         <li class="fragment">In this example, the add-on appends a class to every slide.</li>
@@ -112,7 +112,7 @@
                 </section>
 
                 <section>
-                    <h2>Beyond <code>init</code></h2>
+                    <h2>Beyond <code>initialize</code></h2>
                     <p>Run your code only for certain slides with an attribute by using <code>attributeEventListeners</code>.</p>
                     <pre><code>RadReveal.register({
   name: 'example',
@@ -128,7 +128,7 @@
                 </section>
 
                 <section data-transition="none">
-                    <h2>Beyond <code>init</code></h2>
+                    <h2>Beyond <code>initialize</code></h2>
                     <p>The listener function is called with four arguments:</p>
                     <ul>
                         <li class="fragment"><code>attrVal</code>, the value of the attribute for this slide.</li>
@@ -140,7 +140,7 @@
                 </section>
 
                 <section data-transition="none">
-                    <h2>Beyond <code>init</code></h2>
+                    <h2>Beyond <code>initialize</code></h2>
                     <p>So you could use this to do something to the slide element.  For example, we could add a class based 
                         on the value of the attribute.</p>
                     <pre><code>function addTheClass(attrVal, slideObj, event, radEventName) {
@@ -158,7 +158,7 @@ RadReveal.register({
                 </section>
 
                 <section data-transition="none">
-                    <h2>Beyond <code>init</code></h2>
+                    <h2>Beyond <code>initialize</code></h2>
                     <p>So this slide:</p>
                     <pre><code>&lt;section data-rad-example="radicalDude"&gt;</code></pre>
                     <div class="fragment">

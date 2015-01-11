@@ -16,29 +16,22 @@ Called by add-ons to register themselves.
 
 **addon.name**: `string`, the name of the add-on, which must match the `radName` value used when loaded as a dependency
 
-**addon.init**: `function`, a function called when the add on is registered, which is passed two arguments: the 
+**addon.init**: `function`, an optional function called when the add on is registered, which is passed two arguments: the 
     `radConfig` value used when loaded as a dependency (if any), and an array of all the slide objects.
 
-**addon.attributeEventListeners**: `object`, a hash of attribute names, each mapped to an object with event names keyed 
+**addon.attributeEventListeners**: `object`, an optional hash of attribute names, each mapped to an object with event names keyed 
     to functions.
 
 
 
-### RadReveal.handlerClosure() 
+### RadReveal.initialize(inputConfig) 
 
-xxx
+Called to trigger Reveal initialization instead of calling Reveal.initialize directly.
+Also captures config (some of which is RadReveal), and register RadReveal event handler middlemen.
 
+**Parameters**
 
-
-### RadReveal.slideSetup() 
-
-xxx
-
-
-
-### RadReveal.initialize() 
-
-Called to trigger Reveal initialization, capture config, and...?
+**inputConfig**: `object`, Reveal.js configuration plus modifications for RadReveal
 
 
 

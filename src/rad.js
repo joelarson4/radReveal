@@ -1,7 +1,6 @@
-/**
-  @module RadReveal
-*/
-
+/** 
+ * @module RadReveal
+ */
 (function() { 'use strict';
     var config; //reveal + rad config
     var addons = []; //all the addons
@@ -18,11 +17,11 @@
         fragmentHidden: {}
     };
 
-    /** Called by add-ons to register themselves.
-     * 
+    /** 
+     * Called by add-ons to register themselves.
      * @param {object} addon - an object representing this add-on, which must contain the following properties:
      * @param {string} addon.name - the name of the add-on, which must match the `radName` value used when loaded as a dependency
-     * @param {function=} addon.init - an optional function called when the add on is registered, which is passed two arguments: the 
+     * @param {function=} addon.initialize - an optional function called when the add on is registered, which is passed two arguments: the 
      *     `radConfig` value used when loaded as a dependency (if any), and an array of all the slide objects.
      * @param {object=} addon.attributeEventListeners - an optional hash of attribute names, each mapped to an object with event names keyed 
      *     to functions.
@@ -35,7 +34,7 @@
                 addonConfig = config.dependencies[di].radConfig;
             }
         };
-        addon.init(addonConfig, allSlideObjs);
+        addon.initialize(addonConfig, allSlideObjs);
 
         addon.attributeEventListeners = addon.attributeEventListeners || [];
 
@@ -49,6 +48,14 @@
         addons.push(addon);
     }
 
+    /** 
+     * Registers specific event handlers for attributes.  Called when addon is registered as a dependency.
+     * Behavior varies slightly whether the level is 'section' or 'fragment'.
+     * @param {string} level - either 'section' or 'fragment'
+     * @param {object} addon - addon module being registered
+     * @param {string} attrName - the name of the attribute to associate the event with.
+     * @private
+     */
     function registerAttributeEventHandlers(level, addon, attrName) {
         var selector = (level == 'slide' ? 'section' : '.fragment');
         var indexAttr = 'data-rad-main-' + (level == 'slide' ? '' : 'fragment-') + 'index';
@@ -90,8 +97,9 @@
         });
     }
 
-    /** xxx
-     *
+    /** 
+     * Simple closure to run handler within.
+     * @private
      */
     function handlerClosure(handler, attrVal, slideObj, radEventName) {
         return function(event) {
@@ -99,8 +107,9 @@
         };
     }
 
-    /** xxx
-     *
+    /** 
+     * Sets up a slide for use within the framework.
+     * @private
      */
     function slideSetup(slideElement, si) {
         var prevSlideObj = ( si ? allSlideObjs[si - 1] : null);
@@ -125,6 +134,10 @@
         });
     }
 
+    /** 
+     * Sets up a fragment for use within the framework.
+     * @private
+     */
     function fragSetup(slideObj, fragElement, fi) {
         var prevFragObj = ( fi ? slideObj.fragObjs[fi - 1] : null);
         var fragObj = {
@@ -142,6 +155,10 @@
         slideObj.fragObjs.push(fragObj);
     }
 
+    /** 
+     * Event handler called when slide is changed, which then passes off to underlying addon handlers.
+     * @private
+     */
     function slideHandler(event) {
         var slideElement = event.currentSlide;
         var slideIndex = parseInt(slideElement.getAttribute('data-rad-main-index'));
@@ -183,6 +200,10 @@
         currentFragObj = null;
     }
 
+    /** 
+     * Event handler called when fragment is changed, which then passes off to underlying addon handlers.
+     * @private
+     */
     function fragHandler(eventName, event) {
         var fragElement = event.fragment;
         var fragIndex = parseInt(fragElement.getAttribute('data-rad-main-fragment-index'));
@@ -203,8 +224,12 @@
     }
 
     
-    /** Called to trigger Reveal initialization, capture config, and...?
-     *
+    /** 
+     * Called to trigger Reveal initialization instead of calling Reveal.initialize directly.
+     * Also captures config (some of which is RadReveal), and register RadReveal event handler middlemen.
+     * @param {object} inputConfig - Reveal.js configuration plus modifications for RadReveal.
+     * @param {string} inputConfig.dependencies[n].radName - The name of the Rad addon, which must match what's passed by that addon to `RadReveal.register`.
+     * @param {object} inputConfig.dependencies[n].radConfig - A configuration object passed to the Rad addon initialize function.
      */
     function initialize(inputConfig) {
         config = inputConfig;
@@ -220,6 +245,7 @@
         Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
     }
 
+    //Attach to window as a global for simplicity.
     window.RadReveal = {
         register: register,
         initialize: initialize
