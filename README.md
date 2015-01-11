@@ -1,6 +1,8 @@
 RadReveal
 =========
 
+#This is not quite ready to use.  Check back soon!#
+
 **Reveal.js add-ons: a JavaScript library to help you extend [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).**
 
 [Reveal.js](http://lab.hakim.se/reveal-js/) rocks!  Web Developers seem to love Reveal.js, as evidenced by the fact that every other presentation on JavaScript seems to use it.  Personally, I love Reveal.js because it is hackable.
