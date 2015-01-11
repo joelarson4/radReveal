@@ -59,7 +59,6 @@
                         <li class="fragment">Makes customizing Reveal.js easy.</li>
                         <li class="fragment">Attach behaviors to slides using data attributes.</li>
                         <li class="fragment">Encourages small, shareable packages.</li>
-                        <li class="fragment">Easily integrate Testing and JsDoc.</li>
                     </ul>
                 </section>
 
@@ -87,7 +86,7 @@
   
   dependencies: [
     { 
-      src: 'rad-example.js', 
+      src: 'somepath/rad-example.js', 
       radName: 'example',
       radConfig: { addClass: 'example' } 
     }
@@ -200,7 +199,7 @@ RadReveal.register({
                     <h2>Run something on <code>setup</code></h2>
                     <p>This slide has a <code>data-rad-functionrunner-setup</code> attr:</p>
                     <pre><code>&lt;section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'&gt;</code></pre>
-                    <p>and the page has a (global) function defined:</p>
+                    <p>and the page has a (global) object defined:</p>
                     <pre><code>var bar = {
   value: 'Hello world!',
   baz: function(slideObj, event, radEventName) {
