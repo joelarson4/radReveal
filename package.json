@@ -7,7 +7,7 @@
     "url": "TODO"
   },
   "dependencies": {
-    "reveal.js": "git://github.com/hakimel/reveal.js"
+    "reveal.js": "3.0.0"
   },
   "devDependencies": {
     "gulp-uglify": "~1.0.1",

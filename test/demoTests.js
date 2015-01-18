@@ -1,3 +1,8 @@
+/**
+ * These tests are run as part of the default gulp build process.  You can run them in the browser by adding "test" as
+ * a url parameter, e.g. loading "demo.html?test".
+ */
+
 
 //utilities
 function navigateTo(ele, lastcall) {
