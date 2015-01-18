@@ -4,7 +4,7 @@
   "description": "A JavaScript library to help you extend the Reveal.js - the HTML Presentation Framework",
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/joelarson4/radReveal"
   },
   "dependencies": {
     "reveal.js": "3.0.0"
