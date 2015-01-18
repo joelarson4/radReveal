@@ -1,7 +1,7 @@
 (function() {
     var config;
 
-    function init(inputConfig, slides) {
+    function initialize(inputConfig, allSlideObjs) {
         config = inputConfig || {};
 
         if(config.fillSlides) {
@@ -10,9 +10,9 @@
                 var attrName = 'data-rad-functionrunner-' + eventName;
                 var attrVal = config.fillSlides[eventName];
                 if(typeof attrVal !== 'string') attrVal = JSON.stringify(attrVal);
-                slides.forEach(function(element) {
-                    if(!element.hasAttribute(attrName)) {
-                        element.setAttribute(attrName, attrVal);
+                allSlideObjs.forEach(function(slideObj) {
+                    if(!slideObj.element.hasAttribute(attrName)) {
+                        slideObj.element.setAttribute(attrName, attrVal);
                     }
                 });    
             })
@@ -45,7 +45,7 @@
 
     RadReveal.register({
         name: 'functionRunner',
-        init: init,
+        initialize: initialize,
         attributeEventListeners: {
             'data-rad-functionrunner-setup': {
                 setup: runner
