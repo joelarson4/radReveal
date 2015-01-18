@@ -1,5 +1,5 @@
 if(window.mochaPhantomJS || document.location.href.indexOf('test') > -1) {
-    var MODULES_PATH = '../node_modules/';
+    var MODULES_PATH = 'node_modules/';
     //headjs 0.96 which ships with reveal.js doesn't support CSS loading...
     if(!window.mochaPhantomJS) {
         var cssElement = document.createElement('link');
@@ -20,7 +20,7 @@ if(window.mochaPhantomJS || document.location.href.indexOf('test') > -1) {
 
             window.assert = chai.assert;
 
-            head.js('../test/demoTests.js', function() {
+            head.js('test/demoTests.js', function() {
                 if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
                 else { mocha.run(); }
             });

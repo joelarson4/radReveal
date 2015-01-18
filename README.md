@@ -23,7 +23,7 @@ RadReveal provides these benefits.
 
 ##API JsDoc for RadReveal
 
-You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/rad.md).
+You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/radReveal.md).
 
 ##Simple example
 

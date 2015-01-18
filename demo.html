@@ -10,8 +10,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="css/reveal.min.css">
-        <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+        <link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="node_modules//reveal.js/css/theme/simple.css" id="theme">
 
         <style>
             .reveal code { color: #468; }
@@ -81,7 +81,8 @@
                 <section>
                     <h2>Simple example</h2>
                     <p>How is it loaded?</p>
-                    <pre><code>RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
+                    <pre><code>//replace Reveal.initialize w/ RadReveal.initialize
+RadReveal.initialize({
   ...normal Reveal configuration goes here
   
   dependencies: [
@@ -102,7 +103,7 @@
                     <ol>
                         <li class="fragment"><code>RadReveal.initialize</code> calls <code>Reveal.initialize</code>.</li>
                         <li class="fragment"><code>Reveal.initialize</code> loads dependencies, including <code>rad-example.js</code>.</li>
-                        <li class="fragment">The example add-on registers itself with an <code>initialize</code> function.</li>
+                        <li class="fragment">Eample add-on registers self w/ <code>initialize()</code>.</li>
                         <li class="fragment">After Reveal is initialized, RadReveal triggers example's <code>initialize</code> function.</li>
                         <li class="fragment">RadReveal passes in the <code>radConfig</code> value and all slides defined.</li>
                         <li class="fragment">example add-on does whatever it wants.</li>
@@ -299,9 +300,9 @@ RadReveal.register({
             </div>
         </div>
 
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.js"></script>
-        <script src="plugin/radReveal/rad.js"></script>
+        <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+        <script src="node_modules/reveal.js/js/reveal.js"></script>
+        <script src="build/radReveal.min.js"></script>
 
         <script>
             function foo(arg0, arg1, slideObj, event, radEventName) {
@@ -331,18 +332,20 @@ RadReveal.register({
                 controls: true,
                 progress: true,
                 history: true,
+
+                center: false,
                 
                 // Optional libraries used to extend on reveal.js
                 dependencies: [
-                    { src: 'plugin/rad-functionRunner/functionRunner.js', radName: 'functionRunner', radConfig: { 
+                    { src: 'build/functionRunner.min.js', radName: 'functionRunner', radConfig: { 
                         fillSlides: { setup: { "func" : "biff" } }
                     } },
-                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    { src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
 
-            head.js('../test/maybeDemoTest.js');
+            head.js('test/maybeDemoTest.js');
         </script>
     </body>
 </html>

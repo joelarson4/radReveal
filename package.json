@@ -6,7 +6,9 @@
     "type": "git",
     "url": "TODO"
   },
-  "dependencies": {},
+  "dependencies": {
+    "reveal.js": "git://github.com/hakimel/reveal.js"
+  },
   "devDependencies": {
     "gulp-uglify": "~1.0.1",
     "gulp-rename": "~1.2.0",
@@ -16,7 +18,8 @@
     "gulp-mocha-phantomjs": "~0.5.1",
     "mocha": "~2.0.1",
     "jsdox": "~0.4.3",
-    "gulp-shell": "~0.2.11"
+    "gulp-shell": "~0.2.11",
+    "del": "~1.1.1"
   },
   "licenses": [
     {
