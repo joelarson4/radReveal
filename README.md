@@ -11,7 +11,7 @@ But not a lot of people customize or extend it -- despite the fact that Reveal.j
 
 Maybe that's because, the out of the box, Reveal.js is not _easy_ to extend...
 
-## The solution? RadReveal
+##The solution? RadReveal
 
 I put together RadReveal after noticing that every presentation I was doing had some level of customization, and the types of things I was doing had a lot in common.  So I consolidated what I'd done into a simple to use library, RadReveal.
 
@@ -21,11 +21,11 @@ RadReveal provides these benefits.
 * Attach behaviors to slides using data attributes.
 * Encourages small, shareable packages.
 
-## API JsDoc for RadReveal
+##API JsDoc for RadReveal
 
 You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/rad.md).
 
-## Simple example
+##Simple example
 
 What does an add-on look like?
 
@@ -69,7 +69,7 @@ So what happens when you run this?
 5. When calling `initialize`, RadReveal passes in the `radConfig` value and all slides defined.
 6. `example` add-on does whatever it wants to.  In this example, the add-on appends a class `example` to every slide.
 
-## Beyond initialize
+##Beyond initialize
 
 You can run your code only for certain slides with an attribute by using `attributeEventListeners`.
 
@@ -172,12 +172,12 @@ Likewise you could use the attribute name `data-rad-functionrunner-hidden` to ru
 
 You also can use the same attributes on inner/vertical slides.
 
-## More addons coming
+##More addons coming
 
-*   I have a several other addons in prototype that I will clean up and release (as separate repos) soon.
-*   I will list these on main RadReveal README.
-*   And hopefully remember to update this slide!
+* I have a several other addons in prototype that I will clean up and release (as separate repos) soon.
+* I will list these on main RadReveal README.
+* And hopefully remember to update this slide!
 
-## Please write your own!
+##Please write your own!
 
 The dream would be a tiny ecosystem of well written addons that folks can use to make **rad** presentations.
