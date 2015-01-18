@@ -11,21 +11,21 @@ function navigateTo(ele, lastcall) {
     }
     beforeEach(function(done) {
         Reveal.slide(0, 0, 0);
-        var navTo = function() {
+        function navTo() {
             if(slide.className.indexOf('present') < 0) {
                 Reveal.next();
-                setTimeout(function() { navTo(); }, 150);
+                setTimeout(function() { navTo(); }, 50);
             } else if(frag !== null && frag.className.indexOf('current-fragment') < 0) {
                 Reveal.nextFragment();
-                setTimeout(function() { navTo(); }, 150);
+                setTimeout(function() { navTo(); }, 50);
             } else if(typeof lastcall === 'function') {
                 lastcall();
-                setTimeout(function() { done(); }, 150);
+                setTimeout(function() { done(); }, 50);
             } else {
                 done();
             }
         };
-        setTimeout(function() { navTo(); }, 150);
+        setTimeout(function() { navTo(); }, 50);
     });
 }
 
@@ -34,7 +34,6 @@ function elementContains(ele, text) {
 }
 
 function getSlideForFragment(frag) {
-    var frag = document.querySelector('.fragment');
     var slide = frag.parentNode;
     while(slide && slide.tagName !== 'SECTION') {
         slide = slide.parentNode;
@@ -112,6 +111,7 @@ describe('FunctionRunner-setup modifies HTML properly', function() {
 });
 
 describe('FunctionRunner-shown modifies HTML properly', function() {
+    this.timeout(3000);
     var slide = document.querySelector('[data-rad-functionrunner-shown]');
     var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-shown'));
     var slideOriginalHtml = slide.innerHTML;
@@ -127,6 +127,7 @@ describe('FunctionRunner-shown modifies HTML properly', function() {
 });
 
 describe('FunctionRunner-hidden modifies HTML properly', function() {
+    this.timeout(3000);
     var slide = document.querySelector('[data-rad-functionrunner-hidden]');
     var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-hidden'));
     var slideIndex = Number(slide.getAttribute('data-rad-main-index'));
@@ -142,6 +143,7 @@ describe('FunctionRunner-hidden modifies HTML properly', function() {
 });
 
 describe('FunctionRunner-fragment-setup modifies HTML properly', function() {
+    this.timeout(3000);
     var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-setup]');
     var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-setup'));
     
@@ -153,9 +155,9 @@ describe('FunctionRunner-fragment-setup modifies HTML properly', function() {
 });
 
 describe('FunctionRunner-fragment-shown modifies HTML properly', function() {
+    this.timeout(3000);
     var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-shown]');
-    var slide = getSlideForFragment(frag);
-
+    
     var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-shown'));
     
     navigateTo(frag);
@@ -168,9 +170,9 @@ describe('FunctionRunner-fragment-shown modifies HTML properly', function() {
 });
 
 describe('FunctionRunner-fragment-hidden modifies HTML properly', function() {
+    this.timeout(3000);
     var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-hidden]');
-    var slide = getSlideForFragment(frag);
-
+   
     var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-hidden'));
     
     navigateTo(frag, function() {
