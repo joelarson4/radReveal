@@ -1,4 +1,2 @@
-node_modules/
-!node_modules/reveal.js/
 node_modules/reveal.js/test/
 node_modules/reveal.js/node_modules/
