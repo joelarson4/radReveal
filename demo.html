@@ -325,16 +325,12 @@ RadReveal.register({
             function biff(slideObj, event, radEventName) {
                 slideObj.element.setAttribute('data-testing-functionrunner-fillslides', 'true');
             }
-        </script>
 
-        <script>
             RadReveal.initialize({
                 controls: true,
                 progress: true,
                 history: true,
-
                 center: false,
-
                 transitionSpeed: 'fast',
                 
                 // Optional libraries used to extend on reveal.js
@@ -348,7 +344,7 @@ RadReveal.register({
             });
 
             //run tests if "test" is a url or path parameter, e.g. "demo.htm?test"
-            head.js('test/maybeDemoTest.js');
+            head.js('test/maybeTest.js?test=test/demoTests.js');
         </script>
     </body>
 </html>
