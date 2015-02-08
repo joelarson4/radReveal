@@ -7,6 +7,16 @@ var mocha = require('gulp-mocha');
 var shell = require('gulp-shell');
 var del = require('del');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
+var browserify = require('browserify');
+var transform = require('vinyl-transform');
+
+var browserifyIt = function(bopts, ropts) {
+    return transform(function(filename) {
+        return browserify(filename, bopts)
+            .require(filename, ropts)
+            .bundle();
+    });
+};
 
 gulp.task('default', ['build']);
 
@@ -26,9 +36,7 @@ gulp.task('build-only', ['build-rad', 'build-functionRunner'], function(cb) {
 gulp.task('build-rad', function() {
     var builddir = 'build/';
     return gulp.src('src/radReveal.js')
-        // This will output the non-minified version
-        //.pipe(gulp.dest(builddir))
-        // This will minify and rename to foo.min.js
+        .pipe(browserifyIt(null, { expose: 'rad-reveal' }))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir))
@@ -38,9 +46,7 @@ gulp.task('build-rad', function() {
 gulp.task('build-functionRunner', function() {
     var builddir = 'build/';
     return gulp.src('src/functionRunner.js')
-        // This will output the non-minified version
-        .pipe(gulp.dest(builddir))
-        // This will minify and rename to foo.min.js
+        .pipe(browserifyIt({ ignoreMissing: true }, null))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));

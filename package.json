@@ -19,7 +19,9 @@
     "mocha": "~2.0.1",
     "jsdox": "~0.4.3",
     "gulp-shell": "~0.2.11",
-    "del": "~1.1.1"
+    "del": "~1.1.1",
+    "browserify": "8.0.0",
+    "vinyl-transform": "~1.0.0"
   },
   "licenses": [
     {
