@@ -1,0 +1,15 @@
+node_modules/reveal.js/test/
+node_modules/reveal.js/node_modules/
+node_modules/.bin/
+node_modules/chai/
+node_modules/del/
+node_modules/gulp-mocha-phantomjs/
+node_modules/gulp-mocha/
+node_modules/gulp-rename/
+node_modules/gulp-shell/
+node_modules/gulp-uglify/
+node_modules/gulp/
+node_modules/jsdox/
+node_modules/mocha/
+node_modules/browserify/
+node_modules/vinyl-transform/
