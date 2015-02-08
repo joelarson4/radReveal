@@ -2,7 +2,7 @@
 
 An example RadReveal add-on which runs functions based on attributes added to slides.  
 
-Note that this module is not importable because it has no exports.
+Note that this is not a true require module, you cannot import it.
 
 ##Attribute values
 All attributes support a value which is a JSON string.  This JSON string should describe an object which supports the following properties:

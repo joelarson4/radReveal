@@ -134,7 +134,8 @@ This means that `anotherFunction` will run each time a slide is displayed with a
 
 ##The functionRunner example add-on.
 
-The core RadReveal repo includes `functionRunner`, a simple add-on that triggers a function to run for any slide with a `data-rad-functionrunner-{eventName}` attribute.
+The core RadReveal repo includes `functionRunner`, a simple add-on that triggers a function to run for any slide with a `data-rad-functionrunner-{eventName}` attribute. 
+There is also [API documentation for functionRunner](https://github.com/joelarson4/radReveal/blob/master/functionRunner.md).
 
 For example, here is a slide with a `data-rad-functionrunner-setup` attr:
 
