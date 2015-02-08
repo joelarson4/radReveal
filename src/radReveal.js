@@ -261,8 +261,7 @@ function initialize(inputConfig) {
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
 }
 
-//Attach to window as a global for simplicity.
-module.exports = window.RadReveal = {
+module.exports = {
     register: register,
     initialize: initialize
 }

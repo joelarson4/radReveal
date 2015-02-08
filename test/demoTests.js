@@ -48,8 +48,8 @@ function getSlideForFragment(frag) {
 
 //tests
 describe('Rad startup', function() {
-
-    it('RadReveal exists with initialize function', function() { 
+    it('RadReveal is require-able and exists with initialize function', function() { 
+        var RadReveal = require('rad-reveal');
         assert.isObject(RadReveal); 
         assert.isFunction(RadReveal.initialize);
     });
