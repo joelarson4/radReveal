@@ -1,4 +1,5 @@
 /** 
+ * The core RadReveal functionality used by all add-ons.
  * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
  *
  * Import using `var RadReveal = require('rad-reveal');`.
@@ -265,3 +266,4 @@ module.exports = window.RadReveal = {
     register: register,
     initialize: initialize
 }
+
