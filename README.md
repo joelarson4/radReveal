@@ -21,6 +21,8 @@ RadReveal provides these benefits.
 * Attach behaviors to slides using data attributes.
 * Encourages small, shareable packages.
 
+To get a better idea of how this works <a href="http://joelarson4.github.io/radReveal/demo.html#/">check out the demo slideshow</a>.
+
 ##API JsDoc for RadReveal
 
 You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/radReveal.md).
