@@ -31,7 +31,9 @@ You may want to to skip to [the API documentation for the library](https://githu
 
 What does an add-on look like?
 
-`rad-example.js` - the addon script
+`example.js` - the addon script
+
+    var RadReveal = require('rad-reveal');
 
     RadReveal.register({
       name: 'example',
@@ -45,15 +47,15 @@ What does an add-on look like?
 `index.html` modifications for initializing RadReveal and Reveal.js
 
     ...
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.js"></script>
-    <script src="plugin/radReveal/rad.js"></script>
+    <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+    <script src="node_modules/reveal.js/js/reveal.js"></script>
+    <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
     ...
     RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
       ...normal Reveal configuration goes here
       dependencies: [
         { 
-          src: 'somepath/rad-example.js', 
+          src: 'somepath/example.js', 
           radName: 'example',
           radConfig: { addClass: 'example' } 
         }
@@ -158,7 +160,7 @@ Together this results in `setup: Hello world!` text being appended to the slide 
 
 You can also pass arguments through a functionRunner attribute.  This slide has a `data-rad-functionrunner-shown` attr:
 
-	<data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'>
+	<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'>
 
 and the page has a (global) function defined:
 
