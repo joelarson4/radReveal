@@ -11,3 +11,5 @@ node_modules/gulp-uglify/
 node_modules/gulp/
 node_modules/jsdox/
 node_modules/mocha/
+node_modules/browserify/
+node_modules/vinyl-transform/
