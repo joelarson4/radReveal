@@ -305,6 +305,7 @@ RadReveal.register({
         <script src="build/radReveal.min.js"></script>
 
         <script>
+            //simple demo functions to trigger via attribute with functionRunner
             function foo(arg0, arg1, slideObj, event, radEventName) {
                 var ele = document.createElement('p');
                 ele.className = 'functionRunnerAdded';
@@ -326,6 +327,8 @@ RadReveal.register({
                 slideObj.element.setAttribute('data-testing-functionrunner-fillslides', 'true');
             }
 
+
+            //initialize RadReveal (and thereby Reveal.js) as well as load in addons
             RadReveal.initialize({
                 controls: true,
                 progress: true,
@@ -342,6 +345,7 @@ RadReveal.register({
                     { src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                 ]
             });
+
 
             //run tests if "test" is a url or path parameter, e.g. "demo.htm?test"
             head.js('test/maybeTest.js?test=test/demoTests.js');
