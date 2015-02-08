@@ -1,6 +1,6 @@
 /** 
- * @module RadReveal
  * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
+ * @module RadReveal
  */
 'use strict';
 

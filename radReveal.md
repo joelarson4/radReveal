@@ -1,14 +1,12 @@
 # RadReveal
-Please see project README ( https:&#x2F;&#x2F;github.com&#x2F;joelarson4&#x2F;radReveal ) for an overview.
 
-
+Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
 
 
 
 * * *
 
-### RadReveal
-Please see project README ( https:&#x2F;&#x2F;github.com&#x2F;joelarson4&#x2F;radReveal ) for an overview..register(addon, addon.name, addon.initialize, addon.attributeEventListeners) 
+### RadReveal.register(addon, addon.name, addon.initialize, addon.attributeEventListeners) 
 
 Called by add-ons to register themselves.
 
@@ -26,8 +24,7 @@ Called by add-ons to register themselves.
 
 
 
-### RadReveal
-Please see project README ( https:&#x2F;&#x2F;github.com&#x2F;joelarson4&#x2F;radReveal ) for an overview..initialize(inputConfig, inputConfig.dependencies[n].radName, inputConfig.dependencies[n].radConfig) 
+### RadReveal.initialize(inputConfig, inputConfig.dependencies[n].radName, inputConfig.dependencies[n].radConfig) 
 
 Called to trigger Reveal initialization instead of calling Reveal.initialize directly.
 Also captures config (some of which is RadReveal), and register RadReveal event handler middlemen.

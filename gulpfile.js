@@ -9,6 +9,7 @@ var del = require('del');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var browserify = require('browserify');
 var transform = require('vinyl-transform');
+var jsdox = require('jsdox');
 
 var browserifyIt = function(bopts, ropts) {
     return transform(function(filename) {
@@ -35,12 +36,16 @@ gulp.task('build-only', ['build-rad', 'build-functionRunner'], function(cb) {
 //This does the real build work, but we need cleanup to run -after- build step.  
 gulp.task('build-rad', function() {
     var builddir = 'build/';
-    return gulp.src('src/radReveal.js')
-        .pipe(browserifyIt(null, { expose: 'rad-reveal' }))
+    var filename = 'src/radReveal.js';
+    var modulename = 'rad-reveal';
+
+    jsdox.generateForDir(filename, '.', null, function() { });
+
+    return gulp.src(filename)
+        .pipe(browserifyIt(null, { expose: modulename }))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
-        .pipe(gulp.dest(builddir))
-        .pipe(shell(['jsdox --output . src']));
+        .pipe(gulp.dest(builddir));
 });
 
 gulp.task('build-functionRunner', function() {
