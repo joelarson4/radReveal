@@ -52,7 +52,7 @@ gulp.task('build-rad', function() {
 
     return gulp.src(filename)
         .pipe(browserifyIt(null, { expose: modulename }))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
 });
