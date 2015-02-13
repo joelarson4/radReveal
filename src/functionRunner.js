@@ -75,7 +75,7 @@
                         slideObj.element.setAttribute(attrName, attrVal);
                     }
                 });    
-            })
+            });
         }
     }
 
@@ -86,8 +86,10 @@
 
             var root = window;
             if(opts.root) {
-                eval("root = " + opts.root);
+                //yes, eval is evil.  
+                eval.call(window, "root = " + opts.root);
             }
+
             if(opts.module) {
                 root = require('./' + opts.module);
                 if(typeof root !== 'object') {
@@ -95,6 +97,7 @@
                     return;
                 }
             }
+
             var func = root[opts.func];
             if(typeof func !== 'function') {
                 console.log('Function ' + opts.func + ' not found');

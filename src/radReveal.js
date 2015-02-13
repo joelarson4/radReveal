@@ -1,3 +1,6 @@
+/* jshint -W097 */
+/* global document, Reveal, module */
+
 /** 
  * The core RadReveal functionality used by all add-ons.
  * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
@@ -44,7 +47,7 @@ function register(addon) {
         if(config.dependencies[di].radName == addon.name) {
             addonConfig = config.dependencies[di].radConfig;
         }
-    };
+    }
     addon.initialize(addonConfig, allSlideObjs);
 
     addon.attributeEventListeners = addon.attributeEventListeners || [];
@@ -194,8 +197,10 @@ function slideHandler(event) {
 
     allSlideObjs[slideIndex].lastSlideObj = currentSlideObj;
 
+    var oi, olen;
+
     if(currentSlideObj) {
-        for(var oi = 0, olen = currentSlideObj.onHidden.length; oi < olen; oi++) {
+        for(oi = 0, olen = currentSlideObj.onHidden.length; oi < olen; oi++) {
             currentSlideObj.onHidden[oi](event);
         }
     }
@@ -204,7 +209,7 @@ function slideHandler(event) {
     currentSlideObj.indexh = event.indexh;
     currentSlideObj.indexv = event.indexv;
 
-    for(var oi = 0, olen = currentSlideObj.onShown.length; oi < olen; oi++) {
+    for(oi = 0, olen = currentSlideObj.onShown.length; oi < olen; oi++) {
         currentSlideObj.onShown[oi](event);
     }
 
@@ -264,5 +269,4 @@ function initialize(inputConfig) {
 module.exports = {
     register: register,
     initialize: initialize
-}
-
+};

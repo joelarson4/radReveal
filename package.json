@@ -21,7 +21,8 @@
     "gulp-shell": "~0.2.11",
     "del": "~1.1.1",
     "browserify": "8.0.0",
-    "vinyl-transform": "~1.0.0"
+    "vinyl-transform": "~1.0.0",
+    "gulp-jshint": "~1.9.2"
   },
   "licenses": [
     {

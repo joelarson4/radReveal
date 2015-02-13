@@ -5,6 +5,7 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
 var shell = require('gulp-shell');
+var jshint = require('gulp-jshint');
 var del = require('del');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var browserify = require('browserify');
@@ -51,6 +52,8 @@ gulp.task('build-rad', function() {
     jsdox.generateForDir(filename, '.', null, function() { });
 
     return gulp.src(filename)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
         .pipe(browserifyIt(null, { expose: modulename }))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
@@ -63,6 +66,8 @@ gulp.task('build-functionRunner', function() {
     jsdox.generateForDir(filename, '.', null, function() { });
 
     return gulp.src(filename)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
