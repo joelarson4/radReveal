@@ -33,7 +33,7 @@ if(window.mochaPhantomJS || document.location.href.indexOf('test') > -1) {
                     break;
                 }
             };
-
+            head.js('test/testUtils.js');
             head.js(testScript, function() {
                 if(window.mochaPhantomJS) { mochaPhantomJS.run(); }
                 else { mocha.run(); }
