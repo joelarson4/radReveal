@@ -177,6 +177,11 @@ Likewise you could use the attribute name `data-rad-functionrunner-hidden` to ru
 
 You also can use the same attributes on inner/vertical slides.
 
+##Browser support
+I need to put more effort into formalizing my policy and approach on this, as well as testing IE.  Currently I am manually testing this in recent versions of Chrome (40.0) and Firefox (31.4), and running automated tests in PhantomJS (1.9.8).  
+
+I am making an assumption that devs using Reveal.js are able to keep fairly up to date with browsers.  I realize this limits slide-sharing capabilities but I think that's a tradeoff worth making.  I'm also very open to help figuring out a better approach.  Please feel free to file an issue and tell me why I'm wrong and what I can do better!
+
 ##More addons coming
 
 * I have a several other addons in prototype that I will clean up and release (as separate repos) soon.
