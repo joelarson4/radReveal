@@ -12,7 +12,6 @@ var browserify = require('browserify');
 var transform = require('vinyl-transform');
 var jsdox = require('jsdox');
 
-
 //vars
 var builddir = 'build/';
 
@@ -55,6 +54,7 @@ gulp.task('build-rad', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(browserifyIt(null, { expose: modulename }))
+        .pipe(gulp.dest(builddir))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
@@ -68,6 +68,7 @@ gulp.task('build-functionRunner', function() {
     return gulp.src(filename)
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
+        .pipe(gulp.dest(builddir))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
