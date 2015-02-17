@@ -23,6 +23,17 @@ RadReveal provides these benefits.
 
 To get a better idea of how this works <a href="http://joelarson4.github.io/radReveal/demo.html#/">check out the demo slideshow</a>.
 
+##Running the demo slideshow locally
+To run the demo slideshow locally, simply:
+
+    git clone https://github.com/joelarson4/radReveal.git
+    cd radReveal
+    npm install
+
+Now you should be able to run demo.html in your browser.
+
+Note that you may need to `sudo npm install` to get everything installed properly.
+
 ##API JsDoc for RadReveal
 
 You may want to to skip to [the API documentation for the library](https://github.com/joelarson4/radReveal/blob/master/radReveal.md).
@@ -108,7 +119,6 @@ You could use this to do something to the slide element itself.  For example, we
           setup: addTheClass
         }
       }
-    });
 
 So, this slide:
 
