@@ -48,36 +48,41 @@ What does an add-on look like?
 
 `example.js` - the addon script
 
-    var RadReveal = require('rad-reveal');
+```javascript
+var RadReveal = require('rad-reveal');
 
-    RadReveal.register({
-      name: 'example',
-      initialize: function(radConfig, slides) {
-        for(var s = 0, len = slides.length; s < len; s++) {
-          slides[s].className += ' ' + radConfig.addClass;
-        }
-      }
-    });
+RadReveal.register({
+  name: 'example',
+  initialize: function(radConfig, slides) {
+    for(var s = 0, len = slides.length; s < len; s++) {
+      slides[s].className += ' ' + radConfig.addClass;
+    }
+  }
+});
+```
 
 `index.html` modifications for initializing RadReveal and Reveal.js
 
-    ...
-    <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
-    <script src="node_modules/reveal.js/js/reveal.js"></script>
-    <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
-    ...
-    RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
-      ...normal Reveal configuration goes here
-      dependencies: [
-        { 
-          src: 'somepath/example.js', 
-          radName: 'example',
-          radConfig: { addClass: 'example' } 
-        }
-        ...other plugins go here
-      ]
-    });
-    ...
+```html
+...
+<script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+<script src="node_modules/reveal.js/js/reveal.js"></script>
+<script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
+...
+```javascript
+RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
+  ...normal Reveal configuration goes here
+  dependencies: [
+    { 
+      src: 'somepath/example.js', 
+      radName: 'example',
+      radConfig: { addClass: 'example' } 
+    }
+    ...other plugins go here
+  ]
+});
+...
+```
 
 So what happens when you run this?
 
@@ -92,14 +97,16 @@ So what happens when you run this?
 
 You can run your code only for certain slides with an attribute by using `attributeEventListeners`.
 
-    RadReveal.register({
-      name: 'example',
-      attributeEventListeners: {
-        'data-rad-example': {
-          setup: someFunction
-        }
-      }
-    });
+```javascript
+RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      setup: someFunction
+    }
+  }
+});
+```
 
 Each slide with the `data-rad-example` attribute will have `someFunction` called after RadReveal initialization completes. 
 
@@ -112,25 +119,32 @@ The listener function is called with four arguments:
 
 You could use this to do something to the slide element itself.  For example, we could add a class based on the value of the attribute.
 
-    function addTheClass(attrVal, slideObj, event, radEventName) {
-      slideObj.element.className += ' ' + attrVal;
-    }
+```javascript
+function addTheClass(attrVal, slideObj, event, radEventName) {
+  slideObj.element.className += ' ' + attrVal;
+}
 
-    RadReveal.register({
-      name: 'example',
-      attributeEventListeners: {
-        'data-rad-example': {
-          setup: addTheClass
-        }
-      }
+RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      setup: addTheClass
+    }
+  }
+});
+```
 
 So, this slide:
 
-    <section data-rad-example="totallyRad">
+```html
+<section data-rad-example="totallyRad">
+```
 
 would end up having an additional class of `totallyRad` added to it:
 
-    <section data-rad-example="totallyRad" class="totallyRad">
+```html
+<section data-rad-example="totallyRad" class="totallyRad">
+```
     
 which is a silly example but illustrates the point.
 
@@ -138,15 +152,17 @@ which is a silly example but illustrates the point.
 
 You can also register to run something on showing/arriving or hiding/leaving a slide with an attribute.
 
-    RadReveal.register({
-      name: 'example',
-      attributeEventListeners: {
-        'data-rad-example': {
-          shown: anotherFunction,
-          hidden: andAnotherFunction
-        }
-      }
-    });
+```javascript
+RadReveal.register({
+  name: 'example',
+  attributeEventListeners: {
+    'data-rad-example': {
+      shown: anotherFunction,
+      hidden: andAnotherFunction
+    }
+  }
+});
+```
 
 This means that `anotherFunction` will run each time a slide is displayed with a `data-rad-example` attribute, and then when you leave that slide `andAnotherFunction` will run.
 
@@ -159,33 +175,41 @@ There is also [API documentation for functionRunner](https://github.com/joelarso
 
 For example, here is a slide with a `data-rad-functionrunner-setup` attr:
 
-    <section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
-    
+```html
+<section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
+```
+
 and the page has a (global) object defined:
 
-    var bar = {
-      value: 'Hello world!',
-      baz: function(slideObj, event, radEventName) {
-        var span = document.createElement('span');
-        span.innerHTML = radEventName + ': ' + this.value;
-        slideObj.element.appendChild(span);
-      }
-    }
+```javascript
+var bar = {
+  value: 'Hello world!',
+  baz: function(slideObj, event, radEventName) {
+    var span = document.createElement('span');
+    span.innerHTML = radEventName + ': ' + this.value;
+    slideObj.element.appendChild(span);
+  }
+}
+```
 
 Together this results in `setup: Hello world!` text being appended to the slide one time at setup (before any slides are shown).
 
 You can also pass arguments through a functionRunner attribute.  This slide has a `data-rad-functionrunner-shown` attr:
 
-	<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'>
+```html
+<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }'>
+```
 
 and the page has a (global) function defined:
 
-    function foo(arg0, arg1, slideObj, event, radEventName) {
-      var span = document.createElement('span');
-      span.className = 'functionRunnerAdded';
-      span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
-      slideObj.element.appendChild(span);
-    }
+```javascript
+function foo(arg0, arg1, slideObj, event, radEventName) {
+  var span = document.createElement('span');
+  span.className = 'functionRunnerAdded';
+  span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
+  slideObj.element.appendChild(span);
+}
+```
     
 which results in `shown: shown at 2` being appending to the slide every time it is shown.
 
