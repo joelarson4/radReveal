@@ -64,11 +64,10 @@ RadReveal.register({
 `index.html` modifications for initializing RadReveal and Reveal.js
 
 ```html
-...
 <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
 <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
-...
+```
 ```javascript
 RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
   ...normal Reveal configuration goes here
