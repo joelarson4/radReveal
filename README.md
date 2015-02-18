@@ -1,9 +1,9 @@
-RadReveal
-=========
+#RadReveal
+** a JavaScript library to help you create add-ons for [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).**
 
-#This is not quite ready to use.  Check back soon!
+<a href="http://joelarson4.github.io/radReveal/demo.html#/">Check out the demo slideshow</a> to get see how RadReveal works.
 
-**Reveal.js add-ons: a JavaScript library to help you extend [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).**
+##Why isn't _everybody_ hacking Reveal.js?
 
 [Reveal.js](http://lab.hakim.se/reveal-js/) rocks!  Web Developers seem to love Reveal.js, as evidenced by the fact that every other presentation on JavaScript seems to use it.  Personally, I love Reveal.js because it is hackable.
 
@@ -21,7 +21,11 @@ RadReveal provides these benefits.
 * Attach behaviors to slides using data attributes.
 * Encourages small, shareable packages.
 
-To get a better idea of how this works <a href="http://joelarson4.github.io/radReveal/demo.html#/">check out the demo slideshow</a>.
+If you didn't already, <a href="http://joelarson4.github.io/radReveal/demo.html#/">take a look at the demo slideshow</a> to see RadReveal in action.
+
+#How to create a RadReveal add-on
+
+Note: I plan to write a lot more on this soon, including some skeleton example repos you can check out and use.
 
 ##Running the demo slideshow locally
 To run the demo slideshow locally, simply:
@@ -146,6 +150,8 @@ You can also register to run something on showing/arriving or hiding/leaving a s
 
 This means that `anotherFunction` will run each time a slide is displayed with a `data-rad-example` attribute, and then when you leave that slide `andAnotherFunction` will run.
 
+
+
 ##The functionRunner example add-on.
 
 The core RadReveal repo includes `functionRunner`, a simple add-on that triggers a function to run for any slide with a `data-rad-functionrunner-{eventName}` attribute. 
@@ -187,6 +193,9 @@ Likewise you could use the attribute name `data-rad-functionrunner-hidden` to ru
 
 You also can use the same attributes on inner/vertical slides.
 
+#In closing
+Before you go, a few more things you should know.
+
 ##Browser support
 I need to put more effort into formalizing my policy and approach on this, as well as testing IE.  Currently I am manually testing this in recent versions of Chrome (40.0) and Firefox (31.4), and running automated tests in PhantomJS (1.9.8).  
 
@@ -198,6 +207,6 @@ I am making an assumption that devs using Reveal.js are able to keep fairly up t
 * I will list these on main RadReveal README.
 * And hopefully remember to update this slide!
 
-##Please write your own!
+##Please write your own add-ons!
 
 The dream would be a tiny ecosystem of well written addons that folks can use to make **rad** presentations.
