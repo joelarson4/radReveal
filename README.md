@@ -49,9 +49,7 @@ What does an add-on look like?
 `example.js` - the addon script
 
 ```javascript
-var RadReveal = require('rad-reveal');
-
-RadReveal.register({
+require('rad-reveal').register({
   name: 'example',
   initialize: function(radConfig, slides) {
     for(var s = 0, len = slides.length; s < len; s++) {
@@ -69,10 +67,12 @@ RadReveal.register({
 <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
 ```
 ```javascript
-RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
+Reveal.initialize({
   ...normal Reveal configuration goes here
   dependencies: [
     { 
+      //include it just like a normal dependency, 
+      //  but with radName and radConfig properties
       src: 'somepath/example.js', 
       radName: 'example',
       radConfig: { addClass: 'example' } 
@@ -80,24 +80,23 @@ RadReveal.initialize({ //replace Reveal.initialize w/ RadReveal.initialize
     ...other plugins go here
   ]
 });
-...
+require('rad-reveal').initialize();
 ```
 
 So what happens when you run this?
 
-1. `RadReveal.initialize` calls `Reveal.initialize` for you, passing in the configuration.
-2. `Reveal.initialize` loads dependencies, including `rad-example.js`.
-3. The example add-on registers itself with an `initialize` function.
-4. After Reveal is initialized, RadReveal triggers example's `initialize` function.
-5. When calling `initialize`, RadReveal passes in the `radConfig` value and all slides defined.
-6. `example` add-on does whatever it wants to.  In this example, the add-on appends a class `example` to every slide.
+1. `Reveal.initialize` loads dependencies, including `rad-example.js`.
+2. Example add-on registers self with `require('rad-require').register({ ... })`.
+3. After Reveal is initialized, we call `require('rad-require').initialize();`.
+4. RadReveal's `initialize` calls example add-on's `initialize`, passing `radConfig, allSlides`
+5. Example add-on does whatever it wants.
+6. In this example, the add-on appends a class to every slide.
 
 ##Beyond initialize
-
 You can run your code only for certain slides with an attribute by using `attributeEventListeners`.
 
 ```javascript
-RadReveal.register({
+require('rad-reveal').register({
   name: 'example',
   attributeEventListeners: {
     'data-rad-example': {
@@ -123,7 +122,7 @@ function addTheClass(attrVal, slideObj, event, radEventName) {
   slideObj.element.className += ' ' + attrVal;
 }
 
-RadReveal.register({
+require('rad-reveal').register({
   name: 'example',
   attributeEventListeners: {
     'data-rad-example': {
@@ -152,7 +151,7 @@ which is a silly example but illustrates the point.
 You can also register to run something on showing/arriving or hiding/leaving a slide with an attribute.
 
 ```javascript
-RadReveal.register({
+require('rad-reveal').register({
   name: 'example',
   attributeEventListeners: {
     'data-rad-example': {
