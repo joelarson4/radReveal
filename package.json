@@ -1,7 +1,7 @@
 {
   "name": "rad-reveal",
   "version": "0.0.2",
-  "description": "A JavaScript library to help you extend the Reveal.js, the HTML Presentation Framework",
+  "description": "A JavaScript library to help you extend Reveal.js, the HTML Presentation Framework",
   "main": "build/radReveal",
   "repository": {
     "type": "git",
