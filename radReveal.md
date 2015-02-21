@@ -3,7 +3,7 @@
 The core RadReveal functionality used by all add-ons.
 Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
 
-Import using `var RadReveal = require('rad-reveal');`.
+Import using `require('rad-reveal');`.
 
 
 
@@ -29,20 +29,9 @@ Called by add-ons to register themselves.
 
 
 
-### RadReveal.initialize(inputConfig) 
+### RadReveal.initialize() 
 
-Called to trigger Reveal initialization instead of calling Reveal.initialize directly.
-Also captures config (some of which is RadReveal), and register RadReveal event handler middlemen.
-
-**inputConfig** properties
-
-**inputConfig.dependencies[n].radName**: `string`, The name of the Rad addon, which must match what's passed by that addon to `RadReveal.register`.
-
-**inputConfig.dependencies[n].radConfig**: `object`, A configuration object passed to the Rad addon initialize function.
-
-**Parameters**
-
-**inputConfig**: `object`, Reveal.js configuration plus modifications for RadReveal.
+Gets dependencies settings and registers event handlers.
 
 
 

@@ -57,7 +57,7 @@
  */
 (function() {
     'use strict';
-    
+
     var config = {};
 
     function initialize(inputConfig, allSlideObjs) {
@@ -84,13 +84,12 @@
             if(!opts) return;
 
             var root = window;
-            if(opts.root) {
-                //yes, eval is evil.  
-                eval.call(window, "root = " + opts.root);
+            if(opts.root) { 
+                root = window[opts.root];
             }
 
             if(opts.module) {
-                root = require('./' + opts.module);
+                root = require(opts.module);
                 if(typeof root !== 'object') {
                     console.log('Module ' + opts.module + ' not found');
                     return;

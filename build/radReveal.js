@@ -6,7 +6,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
  * The core RadReveal functionality used by all add-ons.
  * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
  *
- * Import using `var RadReveal = require('rad-reveal');`.
+ * Import using `require('rad-reveal');`.
  * @module RadReveal
  */
 'use strict';
@@ -242,16 +242,7 @@ function fragHiddenHandler(event) {
 
 
 /** 
- * Called to trigger Reveal initialization instead of calling Reveal.initialize directly.
- * Also captures config (some of which is RadReveal), and register RadReveal event handler middlemen.
- *
- * **inputConfig** properties
- *
- * **inputConfig.dependencies[n].radName**: `string`, The name of the Rad addon, which must match what's passed by that addon to `RadReveal.register`.
- *
- * **inputConfig.dependencies[n].radConfig**: `object`, A configuration object passed to the Rad addon initialize function.
- *
- * @param {object} inputConfig - Reveal.js configuration plus modifications for RadReveal.
+ * Gets dependencies settings and registers event handlers.
  */
 function initialize() {
     config = Reveal.getConfig();
