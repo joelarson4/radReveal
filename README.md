@@ -1,4 +1,4 @@
-#RadReveal
+#RadReveal [![Build Status](https://travis-ci.org/joelarson4/radReveal.svg)](https://travis-ci.org/joelarson4/radReveal)
 ** a JavaScript library to help you create add-ons for [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).**
 
 <a href="http://joelarson4.github.io/radReveal/demo.html#/">Check out the demo slideshow</a> to get see how RadReveal works.
