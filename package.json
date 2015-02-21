@@ -6,6 +6,9 @@
     "type": "git",
     "url": "https://github.com/joelarson4/radReveal"
   },
+  "scripts": {
+    "test": "gulp test"
+  },
   "dependencies": {
     "reveal.js": "3.0.0"
   },

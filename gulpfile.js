@@ -27,23 +27,21 @@ var browserifyIt = function(bopts, ropts, ignore) {
     });
 };
 
-
-//tasks
-gulp.task('default', ['build']);
-
-gulp.task('build', ['build-test']);
-
-gulp.task('build-test', ['build-only'], function () {
+function test() {
     return gulp.src('demo.html')
         .pipe(mochaPhantomJS());
+}
+
+//tasks
+gulp.task('default', function() {
+  gulp.watch('src/*.js', ['build']);
+  gulp.watch('demo.html', ['build']);
 });
 
-//Clean to run *after* build.  Weirdly that seems to be unusual in the gulp universe.
-gulp.task('build-only', ['build-rad', 'build-functionRunner'], function(cb) {
-    del(['functionRunner.md'], cb); //Currently functionRunner is jsdoc-less, but can't get jsdox to skip it.
-});
+gulp.task('release', ['build'], test);
 
-//This does the real build work, but we need cleanup to run -after- build step.  
+gulp.task('build', ['build-rad', 'build-functionRunner']);
+
 gulp.task('build-rad', function() {
     var filename = 'src/radReveal.js';
     var modulename = 'rad-reveal';
@@ -73,3 +71,5 @@ gulp.task('build-functionRunner', function() {
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
 });
+
+gulp.task('test', test);
