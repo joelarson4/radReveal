@@ -53,7 +53,7 @@ require('rad-reveal').register({
   name: 'example',
   initialize: function(radConfig, slides) {
     for(var s = 0, len = slides.length; s < len; s++) {
-      slides[s].className += ' ' + radConfig.addClass;
+      slides[s].element.className += ' ' + radConfig.addClass;
     }
   }
 });
@@ -77,9 +77,10 @@ Reveal.initialize({
       radName: 'example',
       radConfig: { addClass: 'example' } 
     }
-    ...other plugins go here
+    ...other dependencies go here
   ]
 });
+
 require('rad-reveal').initialize();
 ```
 
@@ -92,8 +93,16 @@ So what happens when you run this?
 5. Example add-on does whatever it wants.
 6. In this example, the add-on appends a class to every slide.
 
-##Beyond initialize
-You can run your code only for certain slides with an attribute by using `attributeEventListeners`.
+##Beyond initialize: `attributeEventListeners`
+Imagine you want to run some code against specific slides at certain points in the slideshow.  How could you do that?
+
+Reveal.js provides some data attributes you can attach to slides to cause certain behaviors 
+(like `data-transition` and `data-background`).  RadReveal enables your add-on to take a similar approach.
+
+You can provide RadReveal `attributeEventListeners` to define attribute listener functions for your add-on.  
+Listener functions are only called for slides or fragments that have specific attributes, and only when specific events occur.
+
+For example:
 
 ```javascript
 require('rad-reveal').register({
@@ -106,7 +115,7 @@ require('rad-reveal').register({
 });
 ```
 
-Each slide with the `data-rad-example` attribute will have `someFunction` called after RadReveal initialization completes. 
+For any slide with the `data-rad-example` attribute, `someFunction` will be called as part of add-on `setup`.
 
 The listener function is called with four arguments:
 
@@ -164,6 +173,16 @@ require('rad-reveal').register({
 
 This means that `anotherFunction` will run each time a slide is displayed with a `data-rad-example` attribute, and then when you leave that slide `andAnotherFunction` will run.
 
+##All supported events
+
+These events can be used for `attributeEventListeners`, called for every slide or fragment with the specified attribute:
+
+* `setup` is called when the add-on is initialized.
+* `shown` is called when the matching slide is displayed.
+* `hidden` is called when the matching slide is hidden.
+* `fragmentSetup` is called when the add-on is initialized.
+* `fragmentShown` is called when the fragment is displayed.
+* `fragmentHidden` is called when the fragment is hidden.
 
 
 ##The functionRunner example add-on.

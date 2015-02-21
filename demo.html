@@ -93,7 +93,7 @@
       radName: 'example',
       radConfig: { addClass: 'example' } 
     }
-    ... other plugins go here
+    ... other dependencies go here
   ]
 });
 
@@ -118,7 +118,20 @@ require('rad-require').initialize();
 
                 <section>
                     <h2>Beyond <code>initialize</code></h2>
-                    <p>Use <code>attributeEventListeners</code> to specify an attribute listener function for your add-on.</p>
+                    <p>Imagine you want to run some code against specific slides at certain points in the slideshow.</p>
+                    <p>How could you do that?</p>
+                </section>
+
+                <section>
+                    <h2>Beyond <code>initialize</code></h2>
+                    <p>Reveal.js provides some data attributes you can attach to slides to cause certain behaviors
+                        (different transitions, backgrounds, etc).</p>
+                    <p>RadReveal provides a similar approach.</p>
+                </section>
+
+                <section>
+                    <h2>Beyond <code>initialize</code></h2>
+                    <p>You can provide RadReveal <code>attributeEventListeners</code> to define an attribute listener function for your add-on.</p>
                     <ul>
                         <li class="fragment">Listener functions are only called for slides or fragments that have specific attributes.</li>
                         <li class="fragment">and only when specific events occur</li>
