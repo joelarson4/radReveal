@@ -252,12 +252,8 @@ function fragHiddenHandler(event) {
  *
  * @param {object} inputConfig - Reveal.js configuration plus modifications for RadReveal.
  */
-function initialize(inputConfig) {
-    config = inputConfig;
-    allSlideElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal section'));
-    allSlideElements.forEach(slideSetup);
-
-    Reveal.initialize(inputConfig);
+function initialize() {
+    config = Reveal.getConfig();
 
     Reveal.addEventListener('ready', slideHandler);
     Reveal.addEventListener('slidechanged', slideHandler);
@@ -265,6 +261,10 @@ function initialize(inputConfig) {
     Reveal.addEventListener('fragmentshown', fragShownHandler);
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
 }
+
+//Must capture the DOM before Reveal.js gets involved.
+allSlideElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal section'));
+allSlideElements.forEach(slideSetup);
 
 module.exports = {
     register: register,

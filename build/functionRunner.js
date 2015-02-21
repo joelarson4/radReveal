@@ -57,8 +57,7 @@
  */
 (function() {
     'use strict';
-
-    var RadReveal = require('rad-reveal');
+    
     var config = {};
 
     function initialize(inputConfig, allSlideObjs) {
@@ -110,7 +109,7 @@
         }
     }
 
-    RadReveal.register({
+    require('rad-reveal').register({
         name: 'functionRunner',
         initialize: initialize,
         attributeEventListeners: {
