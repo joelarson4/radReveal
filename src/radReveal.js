@@ -253,11 +253,19 @@ function initialize() {
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
 }
 
+/**
+ * Returns all the slide objects set up by RadReveal.  This should only be used in test code.
+ */
+function getSlideObjects() {
+    return allSlideObjs.concat([]);
+}
+
 //Must capture the DOM before Reveal.js gets involved.
 allSlideElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal section'));
 allSlideElements.forEach(slideSetup);
 
 module.exports = {
     register: register,
-    initialize: initialize
+    initialize: initialize,
+    getSlideObjects: getSlideObjects
 };

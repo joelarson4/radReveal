@@ -35,6 +35,12 @@ Gets dependencies settings and registers event handlers.
 
 
 
+### RadReveal.getSlideObjects() 
+
+Returns all the slide objects set up by RadReveal.  This should only be used in test code.
+
+
+
 
 * * *
 

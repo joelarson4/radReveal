@@ -15,7 +15,6 @@ var jsdox = require('jsdox');
 //vars
 var builddir = 'build/';
 
-
 //utils
 var browserifyIt = function(bopts, ropts, ignore) {
     return transform(function(filename) {

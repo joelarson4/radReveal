@@ -120,7 +120,7 @@ For any slide with the `data-rad-example` attribute, `someFunction` will be call
 The listener function is called with four arguments:
 
 * `attrVal` - the value of the attribute for this slide.
-* `slideObj` - an object representing the slide.
+* `slideObj` - an object representing the slide (see documentation below).
 * `event` - the event object.
 * `radEventName` - the name of the event.
 
@@ -184,6 +184,17 @@ These events can be used for `attributeEventListeners`, called for every slide o
 * `fragmentShown` is called when the fragment is displayed.
 * `fragmentHidden` is called when the fragment is hidden.
 
+##The slide object
+Event listeners get a `slide` object supplied as an argument.  This `slide` object has several public properties:
+
+* `index` the index number of the slide
+* `element` the `section` element for this slide
+* `nextSlideObj` the next slide object
+* `prevSlideObj` the previous slide object
+* `lastSlideObj` the slide object that was shown just before this one
+* `data` an object to which add-ons can attach additional properties.
+
+Please *do* *not* modify the slide object or any of it's properties directly *except* for the `data` property.
 
 ##The functionRunner example add-on.
 

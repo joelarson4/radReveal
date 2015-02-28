@@ -40,6 +40,12 @@ describe('Rad startup', function() {
         assert.equal(frag.getAttribute('data-rad-main-fragment-slide'), slide.getAttribute('data-rad-main-index'));
     });
 
+    it('RadReveal.getSlideObjects returns all slide objects', function() { 
+        var RadReveal = require('rad-reveal');
+        assert.isArray(RadReveal.getSlideObjects()); 
+        assert.isTrue(RadReveal.getSlideObjects().length === document.querySelectorAll('section').length);
+    });
+
 });
 
 
