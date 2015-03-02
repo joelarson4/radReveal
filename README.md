@@ -1,7 +1,7 @@
 #RadReveal [![Build Status](https://travis-ci.org/joelarson4/radReveal.svg)](https://travis-ci.org/joelarson4/radReveal)
 RadReveal is a JavaScript library to help you extend [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).
 
-<a href="http://joelarson4.github.io/radReveal/demo.html">Check out the demo slideshow</a> to see how RadReveal works.
+Check out the [demo slideshow](http://joelarson4.github.io/radReveal/demo.html) to see how RadReveal works.
 
 ##Why isn't _everybody_ hacking Reveal.js?
 
