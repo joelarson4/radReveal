@@ -24,16 +24,19 @@ if(window.mochaPhantomJS || document.location.href.indexOf('test') > -1) {
 
             window.assert = chai.assert;
 
-            var testScript = 'test/test.js';
+            var testScript = null;
+            var testUtilPath = null;
             var scripts = Array.prototype.slice.apply(document.getElementsByTagName('script'));
             //expects to find only one
             for(var si = 0; si < scripts.length; si++) {
                 if(scripts[si].src && scripts[si].src.indexOf('maybeTest.js?test=') >-1) {
                     testScript = scripts[si].src.split('maybeTest.js?test=').pop(); //naive
+                    testUtilPath = scripts[si].src.split('maybeTest.js?test=')[0];
                     break;
                 }
             };
-            head.js('test/testUtils.js');
+            testScript = testScript || (testUtilPath + 'test.js');
+            head.js(testUtilPath + 'testUtils.js');
             head.js(testScript, function() {
                 if(window.mochaPhantomJS) { mochaPhantomJS.run(); }
                 else { mocha.run(); }
