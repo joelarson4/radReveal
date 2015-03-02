@@ -1,4 +1,12 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"rad-reveal":[function(require,module,exports){
+/*!
+ * radReveal
+ * http://joelarson4.github.io/radReveal
+ * MIT licensed
+ *
+ * Copyright (C) 2015 Joe Larson
+ */
+
 /* jshint -W097 */
 /* global document, Reveal, module */
 
@@ -254,12 +262,20 @@ function initialize() {
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
 }
 
+/**
+ * Returns all the slide objects set up by RadReveal.  This should only be used in test code.
+ */
+function getSlideObjects() {
+    return allSlideObjs.concat([]);
+}
+
 //Must capture the DOM before Reveal.js gets involved.
 allSlideElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal section'));
 allSlideElements.forEach(slideSetup);
 
 module.exports = {
     register: register,
-    initialize: initialize
+    initialize: initialize,
+    getSlideObjects: getSlideObjects
 };
 },{}]},{},["rad-reveal"]);
