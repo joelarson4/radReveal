@@ -52,7 +52,7 @@ gulp.task('build-rad', function() {
         .pipe(jshint.reporter('default'))
         .pipe(browserifyIt(null, { expose: modulename }))
         .pipe(gulp.dest(builddir))
-        .pipe(uglify())
+        .pipe(uglify({preserveComments: 'some'}))
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
 });
@@ -66,7 +66,7 @@ gulp.task('build-functionRunner', function() {
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(gulp.dest(builddir))
-        .pipe(uglify())
+        .pipe(uglify({preserveComments: 'some'}))
         .pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest(builddir));
 });

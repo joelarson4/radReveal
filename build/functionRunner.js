@@ -1,3 +1,11 @@
+/*!
+ * radReveal
+ * http://joelarson4.github.io/radReveal
+ * MIT licensed
+ *
+ * Copyright (C) 2015 Joe Larson
+ */
+
 /** 
  * @overview
  * An example RadReveal add-on which runs functions based on attributes added to slides.  

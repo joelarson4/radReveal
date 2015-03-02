@@ -1,3 +1,11 @@
+/*!
+ * radReveal
+ * http://joelarson4.github.io/radReveal
+ * MIT licensed
+ *
+ * Copyright (C) 2015 Joe Larson
+ */
+
 /* jshint -W097 */
 /* global document, Reveal, module */
 
