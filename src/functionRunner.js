@@ -1,6 +1,6 @@
 /*!
- * radReveal
- * http://joelarson4.github.io/radReveal
+ * radReveal functionRunner
+ * http://joelarson4.github.io/radReveal/functionRunner.md
  * MIT licensed
  *
  * Copyright (C) 2015 Joe Larson
@@ -10,7 +10,15 @@
  * @overview
  * An example RadReveal add-on which runs functions based on attributes added to slides.  
  *
- * Note that this is not a true require module, you cannot import it.
+ * Note that this is not a true CommonJS module, you cannot `require()` it.  It should be loaded as a Reveal.js dependency.
+ *
+ *```javascript
+ * Reveal.initialize({
+ *    ...
+ *    dependencies: [
+ *        { src: 'build/functionRunner.min.js', radName: 'functionRunner' }
+ *    ...
+ *```
  *
  * ##Attribute values
  * All attributes support a value which is a JSON string.  This JSON string should describe an object which supports the following properties:
@@ -61,7 +69,7 @@
  * This will call `bar.bazz("1", "abc", radObj, event, radEventName)` when the fragment is shown.
  *
  *
- * @module FunctionRunner
+ * @module functionRunner
  */
 (function() {
     'use strict';
@@ -86,6 +94,10 @@
         }
     }
 
+    /** 
+     * Runs function specified by attribute.  See main module doco for details
+     * @private
+     */
     function runner(attrVal, radObj, event, radEventName) {
         try {
             var opts = JSON.parse(attrVal);

@@ -12,7 +12,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 
 /** 
  * The core RadReveal functionality used by all add-ons.
- * Please see project README ( https://github.com/joelarson4/radReveal ) for an overview.
+ * Please see [project README](https://github.com/joelarson4/radReveal) for an overview.
  *
  * Import using `require('rad-reveal');`.
  * @module RadReveal

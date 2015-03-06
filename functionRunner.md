@@ -1,8 +1,16 @@
-# FunctionRunner
+# functionRunner
 
 An example RadReveal add-on which runs functions based on attributes added to slides.  
 
-Note that this is not a true require module, you cannot import it.
+Note that this is not a true CommonJS module, you cannot `require()` it.  It should be loaded as a Reveal.js dependency.
+
+```javascript
+Reveal.initialize({
+   ...
+   dependencies: [
+       { src: 'build/functionRunner.min.js', radName: 'functionRunner' }
+   ...
+```
 
 ##Attribute values
 All attributes support a value which is a JSON string.  This JSON string should describe an object which supports the following properties:
