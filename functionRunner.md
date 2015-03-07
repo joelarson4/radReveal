@@ -2,13 +2,13 @@
 
 An example RadReveal add-on which runs functions based on attributes added to slides.  
 
-Note that this is not a true CommonJS module, you cannot `require()` it.  It should be loaded as a Reveal.js dependency.
+This is not a true CommonJS module, you cannot `require()` it.  It should be loaded as a Reveal.js dependency.
 
 ```javascript
 Reveal.initialize({
    ...
    dependencies: [
-       { src: 'build/functionRunner.min.js', radName: 'functionRunner' }
+       { src: '<some path>/functionRunner.min.js', radName: 'functionRunner' }
    ...
 ```
 

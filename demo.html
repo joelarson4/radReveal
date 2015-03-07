@@ -235,10 +235,10 @@ require('rad-require').register({
                     </p>
                 </section>
 
-                <section data-rad-functionrunner-setup='{ "root" : "bar", "func" : "baz" }'>
+                <section data-rad-functionrunner-now='{ "root" : "bar", "func" : "baz" }'>
                     <h2>Run something on <code>setup</code></h2>
-                    <p>This slide has a <code>data-rad-functionrunner-setup</code> attr:</p>
-                    <pre><code>&lt;section data-rad-functionrunner-setup='{"root":"bar","func":"baz"}'&gt;</code></pre>
+                    <p>This slide has a <code>data-rad-functionrunner</code> attr:</p>
+                    <pre><code>&lt;section data-rad-functionrunner-now='{"root":"bar","func":"baz"}'&gt;</code></pre>
                     <p>and the page has a (global) <code>bar</code> object defined:</p>
                     <pre><code>var bar = {
   value: 'Hello world!',
@@ -280,33 +280,33 @@ require('rad-require').register({
                 </section>
                 
                 <section>
-                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 1"] }'>
+                    <section data-rad-functionrunner-now='{ "func" : "foo", "args": ["now", "inner 1"] }'>
                         <h2>Inner slide</h2>
                         <p>You can use the same attributes on inner/vertical slides (hit the down arrow this time):</p>
                     </section>
-                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 2"] }'
+                    <section data-rad-functionrunner-now='{ "func" : "foo", "args": ["now", "inner 2"] }'
                             data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "inner 2"] }'
                             data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "inner 2"] }'>
                         <h2>Second inner slide</h2>
                         <p>(down again)</p>
                     </section>
-                    <section data-rad-functionrunner-setup='{ "func" : "foo", "args": ["setup", "inner 3"] }'>
+                    <section data-rad-functionrunner-now='{ "func" : "foo", "args": ["now", "inner 3"] }'>
                         <h2>Third inner slide</h2>
                         <p>(now go forward/right)</p>
                     </section>
                 </section>
                 
-                <section data-rad-functionrunner-setup="null">
+                <section data-rad-functionrunner-now="null">
                     <h2>Fragment support</h2>
                     <p>The first fragment on this slide has these attributes:</p>
                     <pre><code class="smaller">&lt;li class="fragment" 
-  data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
+  data-rad-functionrunner-fragment-now='{ "func" : "foo", "args": ["now", "5"] }'
   data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
   data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
                     <p>You will see the results as you proceed:</p>
                     <ul>
                         <li class="fragment" 
-                            data-rad-functionrunner-fragment-setup='{ "func" : "foo", "args": ["setup", "5"] }'
+                            data-rad-functionrunner-fragment-now='{ "func" : "foo", "args": ["now", "5"] }'
                             data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
                             data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'>
                             First item</li>
@@ -377,8 +377,8 @@ require('rad-require').register({
                     
                     // Optional libraries used to extend on reveal.js
                     dependencies: [
-                        { src: 'build/functionRunner.min.js', radName: 'functionRunner', radConfig: { 
-                            fillSlides: { setup: { "func" : "biff" } }
+                        { src: 'build/functionRunner.js', radName: 'functionRunner', radConfig: { 
+                            fillSlides: { now: { "func" : "biff" } }
                         } },
                         { src: 'node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
                         { src: 'node_modules/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }

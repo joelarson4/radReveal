@@ -7,7 +7,7 @@
  */
 
 /* jshint -W097 */
-/* global document, Reveal, module */
+/* global document, Reveal, module, console */
 
 /** 
  * The core RadReveal functionality used by all add-ons.
@@ -19,102 +19,73 @@
 'use strict';
 
 var config; //reveal + rad config
-var addons = []; //all the addons
 var allSlideElements; //all 'section' elements
 var allSlideObjs = []; //the rad objects created for slides
 var currentSlideObj;
 var currentFragObj;
+var onInit = [];
 
-var handlers = {
-    setup: {},
-    shown: {},
-    hidden: {},
-    fragmentShown: {},
-    fragmentHidden: {}
-};
-
-/** 
- * Called by add-ons to register themselves.
- * 
- * **addon** properties
- *
- * **addon.name**: `string`, the name of the add-on, which must match the `radName` value used when loaded as a dependency
- *
- * **addon.initialize**: `function`, an optional function called when the add on is registered, which is passed two arguments: the 
- *     `radConfig` value used when loaded as a dependency (if any), and an array of all the slide objects.
- *
- * **addon.attributeEventListeners**: `object`, an optional hash of attribute names, each mapped to an object with event names keyed 
- *     to functions.
- *
- * @param {object} addon - an object representing this add-on, which must contain the following properties:
- */
-function register(addon) {
-    //first find the addons config from the dependencies array
-    var addonConfig;
+function register(name, initialize) {
     for(var di = 0, dlen = config.dependencies.length; di < dlen; di++) {
-        if(config.dependencies[di].radName == addon.name) {
-            addonConfig = config.dependencies[di].radConfig;
+        if(config.dependencies[di].radName == name) {
+            initialize(config.dependencies[di].radConfig, allSlideObjs);
         }
     }
-    addon.initialize(addonConfig, allSlideObjs);
-
-    addon.attributeEventListeners = addon.attributeEventListeners || [];
-
-    //now add all attribute handlers
-    Object.keys(addon.attributeEventListeners).forEach(function(attrName) {
-        registerAttributeEventHandlers('slide', addon, attrName);
-        registerAttributeEventHandlers('fragment', addon, attrName);
-    });
-
-    //finally, add the addons to the addon list
-    addons.push(addon);
 }
 
 /** 
- * Registers specific event handlers for attributes.  Called when addon is registered as a dependency.
+ * Registers specific event handlers for attributes.  The handler is called after all addons are initialized.
  * Behavior varies slightly whether the level is 'section' or 'fragment'.
  * @param {string} level - either 'section' or 'fragment'
  * @param {object} addon - addon module being registered
  * @param {string} attrName - the name of the attribute to associate the event with.
  * @private
  */
-function registerAttributeEventHandlers(level, addon, attrName) {
-    var selector = (level == 'slide' ? 'section' : '.fragment');
-    var indexAttr = 'data-rad-main-' + (level == 'slide' ? '' : 'fragment-') + 'index';
+function registerAttributeEventHandler(attrName, eventName, handler) {
+    var slidesWithAttr = Array.prototype.slice.apply(document.querySelectorAll('section[' + attrName + ']'));
+    var fragsWithAttr = Array.prototype.slice.apply(document.querySelectorAll('.fragment[' + attrName + ']'));
+    slidesWithAttr.concat(fragsWithAttr).forEach(function(eleElement) {
+        var indexAttr;
+        var level;
+        if(eleElement.tagName == 'SECTION') {
+            indexAttr = 'data-rad-main-slide-index';
+            level = 'slide';
+        } else if(eleElement.className.indexOf('fragment') > -1) {
+            indexAttr = 'data-rad-main-fragment-index';
+            level = 'fragment';
+        } else {
+            console.log(attrName + ' attached to non-section, non-fragment element; ignored');
+            return; //not a fragment or slide, ignore
+        }
 
-    var elesWithAttr = Array.prototype.slice.apply(document.querySelectorAll(selector + '[' + attrName + ']'));
-    elesWithAttr.forEach(function(eleElement) {
         var eleIndex = parseInt(eleElement.getAttribute(indexAttr));
         var eleObj;
-        if(selector === 'section') {
+        if(level == 'slide') {
             eleObj = allSlideObjs[eleIndex];
-        } else if(selector === '.fragment') {
+        } else {
             var slideIndex = parseInt(eleElement.getAttribute('data-rad-main-fragment-slide'));
             eleObj = allSlideObjs[slideIndex].fragObjs[eleIndex];
         } 
         var attrVal = eleElement.getAttribute(attrName);
 
-        var setupEvent = (level == 'slide' ? 'setup' : 'fragmentSetup');
-        var shownEvent = (level == 'slide' ? 'shown' : 'fragmentShown');
-        var hiddenEvent = (level == 'slide' ? 'hidden' : 'fragmentHidden');
-
-        //run setup immediately
-        if(typeof addon.attributeEventListeners[attrName][setupEvent] === 'function') {
-            var fauxEvent = { 
-                currentSlide: eleElement,
-                type: 'rad'
-            };
-            addon.attributeEventListeners[attrName][setupEvent](attrVal, eleObj, fauxEvent, setupEvent);
+        //run 'now' immediately
+        if(eventName == 'now') {
+            handler(attrVal, eleObj, { type: 'rad' }, eventName);
         }
 
-        //add onShown to list
-        if(typeof addon.attributeEventListeners[attrName][shownEvent] === 'function') {
-            eleObj.onShown.push(handlerClosure(addon.attributeEventListeners[attrName][shownEvent], attrVal, eleObj, shownEvent));
+        //add init to onInit queue
+        if(eventName == 'init') {
+            onInit.push(handlerClosure(handler, attrVal, eleObj, eventName));
         }
 
-        //add onHidden to list
-        if(typeof addon.attributeEventListeners[attrName][hiddenEvent] === 'function') {
-            eleObj.onHidden.push(handlerClosure(addon.attributeEventListeners[attrName][hiddenEvent], attrVal, eleObj, hiddenEvent));
+        //add shown to element's onShown list
+        if(eventName == 'shown') {
+            eleObj.onShown.push(handlerClosure(handler, attrVal, eleObj, eventName));
+        }
+
+        //add hidden to element's onShown list
+        if(eventName == 'hidden') {
+            eleObj.onHidden.push(handlerClosure(handler, attrVal, eleObj, eventName));
         }
     });
 }
@@ -143,9 +114,10 @@ function slideSetup(slideElement, si) {
         lastSlideObj: null, //the slide we left to get to current slide
         onShown: [],
         onHidden: [],
+        onInit: [],
         data: {}
     };
-    slideElement.setAttribute('data-rad-main-index', si + '');
+    slideElement.setAttribute('data-rad-main-slide-index', si + '');
     if(prevSlideObj) prevSlideObj.nextSlideObj = slideObj;
     allSlideObjs.push(slideObj);
 
@@ -183,7 +155,7 @@ function fragSetup(slideObj, fragElement, fi) {
  */
 function slideHandler(event) {
     var slideElement = event.currentSlide;
-    var slideIndex = parseInt(slideElement.getAttribute('data-rad-main-index'));
+    var slideIndex = parseInt(slideElement.getAttribute('data-rad-main-slide-index'));
 
     //prevents double firing under some circumstances
     if(allSlideObjs[slideIndex] == currentSlideObj) return;
@@ -259,6 +231,10 @@ function initialize() {
 
     Reveal.addEventListener('fragmentshown', fragShownHandler);
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
+
+    onInit.forEach(function(handlerClosure) {
+        handlerClosure({ type: 'rad' });
+    });
 }
 
 /**
@@ -274,6 +250,7 @@ allSlideElements.forEach(slideSetup);
 
 module.exports = {
     register: register,
+    on: registerAttributeEventHandler,
     initialize: initialize,
     getSlideObjects: getSlideObjects
 };
