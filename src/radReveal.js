@@ -41,7 +41,7 @@ function register(name, initialize) {
  * @param {string} attrName - the name of the attribute to associate the event with.
  * @private
  */
-function registerAttributeEventHandler(attrName, eventName, handler) {
+function registerAttributeEventHandler(attrName, events, handler) {
     var slidesWithAttr = Array.prototype.slice.apply(document.querySelectorAll('section[' + attrName + ']'));
     var fragsWithAttr = Array.prototype.slice.apply(document.querySelectorAll('.fragment[' + attrName + ']'));
     slidesWithAttr.concat(fragsWithAttr).forEach(function(eleElement) {
@@ -68,25 +68,30 @@ function registerAttributeEventHandler(attrName, eventName, handler) {
         } 
         var attrVal = eleElement.getAttribute(attrName);
 
-        //run 'load' immediately
-        if(eventName == 'load') {
-            handler(attrVal, eleObj, { type: 'rad' }, eventName);
-        }
+        var eventNames = events.split(',');
+        eventNames.forEach(function(eventName) {
+            eventName = eventName.trim();
+            
+            //run 'load' immediately
+            if(eventName == 'load') {
+                handler(attrVal, eleObj, { type: 'rad' }, eventName);
+            }
 
-        //add init to onInit queue
-        if(eventName == 'init') {
-            onInit.push(handlerClosure(handler, attrVal, eleObj, eventName));
-        }
+            //add init to onInit queue
+            if(eventName == 'init') {
+                onInit.push(handlerClosure(handler, attrVal, eleObj, eventName));
+            }
 
-        //add shown to element's onShown list
-        if(eventName == 'shown') {
-            eleObj.onShown.push(handlerClosure(handler, attrVal, eleObj, eventName));
-        }
+            //add shown to element's onShown list
+            if(eventName == 'shown') {
+                eleObj.onShown.push(handlerClosure(handler, attrVal, eleObj, eventName));
+            }
 
-        //add hidden to element's onShown list
-        if(eventName == 'hidden') {
-            eleObj.onHidden.push(handlerClosure(handler, attrVal, eleObj, eventName));
-        }
+            //add hidden to element's onShown list
+            if(eventName == 'hidden') {
+                eleObj.onHidden.push(handlerClosure(handler, attrVal, eleObj, eventName));
+            }
+        });
     });
 }
 

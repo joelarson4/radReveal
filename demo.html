@@ -69,14 +69,17 @@
     <p>What does an add-on look like?</p>
     <div class="fragment">
         <code>rad-example.js</code>
-        <pre><code>var RadReveal = require('rad-reveal');
-RadReveal.register(
-  'example', //name of the add on
-  function(radConfig, slides) { //initialization function
+        <pre><code>(function() { 
+  var RadReveal = require('rad-reveal');
+
+  function exampleInit(radConfig, slides) {
     for(var s = 0, len = slides.length; s < len; s++) {
       slides[s].className += ' ' + radConfig.addClass;
     }
-  });</code></pre>
+  }
+
+  RadReveal.register('example', exampleInit);
+}());</code></pre>
     </div>
 </section>
 
@@ -98,7 +101,8 @@ RadReveal.register(
   ]
 });
 
-require('rad-require').initialize();
+var RadReveal = require('rad-reveal');
+RadReveal.initialize();
 </code></pre>
 </section>
 
@@ -107,9 +111,9 @@ require('rad-require').initialize();
     <p>How does that work?</p>
 
     <ol>
-        <li class="fragment"><code>Reveal.initialize</code> loads dependencies, including <code>rad-example.js</code>.</li>
-        <li class="fragment">Example add-on registers self with <code>require('rad-require').register({ ... })</code>.</li>
-        <li class="fragment">After Reveal is initialized, we call <code>require('rad-require').initialize();</code>.</li>
+        <li class="fragment"><code>Reveal.initialize</code> loads dependencies, including <code>rad-example.js</code></li>
+        <li class="fragment">Example add-on registers self with <code>RadReveal.register(nameString, initFunction)</code></li>
+        <li class="fragment">After Reveal is initialized, we call <code>RadReveal.initialize();</code></li>
         <li class="fragment">RadReveal's <code>initialize</code> calls example add-on's <code>initialize</code>, 
             passing <code>radConfig, allSlides</code></li>
         <li class="fragment">Example add-on does whatever it wants.</li>
@@ -127,7 +131,7 @@ require('rad-require').initialize();
     <h2>Beyond <code>initialize</code></h2>
     <p>Reveal.js provides some data attributes you can attach to slides to cause certain behaviors
         (different transitions, backgrounds, etc).</p>
-    <p>RadReveal provides a similar approach.</p>
+    <p>RadReveal allows you to use a similar approach.</p>
 </section>
 
 <section>
@@ -141,29 +145,22 @@ require('rad-require').initialize();
 
 <section data-transition="none">
     <h2>Beyond <code>initialize</code></h2>
-    <p>For example:</p>
-    <pre><code>require('rad-require').register({
-  name: 'example',
-  attributeEventListeners: {
-    'data-rad-example': {
-      setup: someFunction
-    }
-  }
-});</code></pre>
+    <p>For example, in our example add-on we could have:</p>
+    <pre><code>
+  RadReveal.on('data-rad-example', 'load', someFunction);
+    </code></pre>
     <p>For any slide with the <code>data-rad-example</code> attribute, <code>someFunction</code> 
-        will be called as part of add-on <code>setup</code>.</p>
+        will be called when the add-on <code>load</code>s.</p>
 </section>
 
 <section data-transition="none">
     <h2>Beyond <code>initialize</code></h2>
-    <p>These events can be used for <code>attributeEventListeners</code>, called for every slide or fragment with the specified attribute:</p>
+    <p>These events are available for listeners:</p>
     <ul>
-        <li><code>setup</code> is called when the add-on is initialized.</li>
-        <li><code>shown</code> is called when the matching slide is displayed.</li>
-        <li><code>hidden</code> is called when the matching slide is hidden.</li>
-        <li><code>fragmentSetup</code> is called when the add-on is initialized.</li>
-        <li><code>fragmentShown</code> is called when the fragment is displayed.</li>
-        <li><code>fragmentHidden</code> is called when the fragment is hidden.</li>
+        <li><code>load</code> is fired when the add-on is loaded.</li>
+        <li><code>init</code> is fired when <code>RadReveal.initialize</code> is called.</li>
+        <li><code>shown</code> is fired when the matching slide or fragment is displayed.</li>
+        <li><code>hidden</code> is fired when the matching slide or fragment is hidden.</li>
     </ul>
 </section>
 
@@ -181,30 +178,31 @@ require('rad-require').initialize();
 
 <section data-transition="none">
     <h2>Beyond <code>initialize</code></h2>
-    <p>So you can use this to do something to the slide element.  For example, we could add a class based 
-        on the value of the attribute.</p>
-    <pre><code>function addTheClass(attrVal, slideObj, event, radEventName) {
-  slideObj.element.className += ' ' + attrVal;
-}
+    <p>You can use this to do something to the slide element.  For example, we could add a class based 
+        on the attribute value.</p>
+    <pre><code>(function() { 
+  var RadReveal = require('rad-reveal');
 
-require('rad-require').register({
-  name: 'example',
-  attributeEventListeners: {
-    'data-rad-example': {
-      setup: addTheClass
-    }
+  function addTheClass(attrVal, slideObj, event, radEventName) {
+    slideObj.element.className += ' ' + attrVal;
   }
-});</code></pre>
+
+  RadReveal.on('data-rad-example', 'setup', addTheClass);
+}());</code></pre>
 </section>
 
 <section data-transition="none">
     <h2>Beyond <code>initialize</code></h2>
     <p>...which would mean that this slide:</p>
-    <pre><code>&lt;section data-rad-example="totallyRad"&gt;</code></pre>
+    <pre><code>
+  &lt;section data-rad-example="totallyRad"&gt;
+    </code></pre>
     <div class="fragment">
         <p>would end up having an additional class<br>of <code>totallyRad</code>
             added to it:</p>
-        <pre><code>&lt;section data-rad-example="totallyRad" class="totallyRad"&gt;</code></pre>
+        <pre><code>
+  &lt;section data-rad-example="totallyRad" class="totallyRad"&gt;
+        </code></pre>
     </div>
     <p class="fragment">which is a silly example but illustrates the point.</p>
 </section>
