@@ -69,8 +69,8 @@ function registerAttributeEventHandler(attrName, eventName, handler) {
         } 
         var attrVal = eleElement.getAttribute(attrName);
 
-        //run 'now' immediately
-        if(eventName == 'now') {
+        //run 'load' immediately
+        if(eventName == 'load') {
             handler(attrVal, eleObj, { type: 'rad' }, eventName);
         }
 

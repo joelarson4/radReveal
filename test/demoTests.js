@@ -49,26 +49,26 @@ describe('Rad startup', function() {
 });
 
 
-describe('functionRunner fillSlides fills all slides with now attr', function() {
+describe('functionRunner fillSlides fills all slides with load attr', function() {
     it('working', function() { 
         //fillSlides should mean all sections have this attribute
-        assert.equal(document.querySelectorAll('section').length, document.querySelectorAll('[data-rad-functionrunner-now]').length);
+        assert.equal(document.querySelectorAll('section').length, document.querySelectorAll('[data-rad-functionrunner-load]').length);
 
         var filledSlide = document.querySelector('[data-testing-functionrunner-fillslides="true"]');
         assert.isObject(filledSlide);
     });
 });
 
-describe('data-rad-functionrunner-now modifies HTML properly', function() {
+describe('data-rad-functionrunner-load modifies HTML properly', function() {
     it('working', function() { 
         var sectionElements = Array.prototype.slice.call(document.querySelectorAll('section'));
         sectionElements.forEach(function(ele, index) {
-            var attrVal = JSON.parse(ele.getAttribute('data-rad-functionrunner-now'));
+            var attrVal = JSON.parse(ele.getAttribute('data-rad-functionrunner-load'));
             if(attrVal === null) return;
 
             var html = ele.innerHTML;
             if(attrVal.fun == 'foo') {
-                assert.isTrue(elementContains(slide, 'now'));
+                assert.isTrue(elementContains(slide, 'load'));
                 assert.isTrue(elementContains(slide, attrVal.args[0]));
                 assert.isTrue(elementContains(slide, attrVal.args[1]));
             } else if(attrVal.fun == 'bar') {
@@ -111,15 +111,15 @@ describe('data-rad-functionrunner-hidden modifies HTML properly', function() {
     });
 });
 
-describe('data-rad-functionrunner-fragment-now modifies HTML properly', function() {
+describe('data-rad-functionrunner-fragment-load modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-now]');
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-now'));
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-load]');
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-load'));
     
     it('working', function() { 
-        assert.isTrue(elementContains(frag, 'now'), 'now appended');
-        assert.isTrue(elementContains(frag, attrVal.args[0]), 'arg[0] appended');
-        assert.isTrue(elementContains(frag, attrVal.args[1]), 'arg[1] appended');
+        assert.isTrue(elementContains(frag, 'load'));
+        assert.isTrue(elementContains(frag, attrVal.args[0]));
+        assert.isTrue(elementContains(frag, attrVal.args[1]));
     });
 });
 
