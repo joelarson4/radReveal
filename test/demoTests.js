@@ -3,7 +3,6 @@
  * a url parameter, e.g. loading "demo.html?test".
  */
 
-
 //tests
 describe('Rad startup', function() {
     it('RadReveal is require-able and exists with initialize function', function() { 
@@ -70,7 +69,6 @@ describe('data-rad-functionrunner-load modifies HTML properly', function() {
             if(attrVal.fun == 'foo') {
                 assert.isTrue(elementContains(slide, 'load'));
                 assert.isTrue(elementContains(slide, attrVal.args[0]));
-                assert.isTrue(elementContains(slide, attrVal.args[1]));
             } else if(attrVal.fun == 'bar') {
                 assert.isTrue(elementContains(slide, bar.value));
             }
@@ -91,7 +89,6 @@ describe('data-rad-functionrunner-shown modifies HTML properly', function() {
         assert.notEqual(slide.innerHTML, slideOriginalHtml);
         assert.isTrue(elementContains(slide, 'shown'));
         assert.isTrue(elementContains(slide, attrVal.args[0]));
-        assert.isTrue(elementContains(slide, attrVal.args[1]));
     });
 });
 
@@ -107,7 +104,6 @@ describe('data-rad-functionrunner-hidden modifies HTML properly', function() {
     it('working', function() { 
         assert.isTrue(elementContains(slide, 'hidden'));
         assert.isTrue(elementContains(slide, attrVal.args[0]));
-        assert.isTrue(elementContains(slide, attrVal.args[1]));
     });
 });
 
@@ -119,7 +115,6 @@ describe('data-rad-functionrunner-fragment-load modifies HTML properly', functio
     it('working', function() { 
         assert.isTrue(elementContains(frag, 'load'));
         assert.isTrue(elementContains(frag, attrVal.args[0]));
-        assert.isTrue(elementContains(frag, attrVal.args[1]));
     });
 });
 
@@ -134,7 +129,6 @@ describe('data-rad-functionrunner-fragment-shown modifies HTML properly', functi
     it('working', function() { 
         assert.isTrue(elementContains(frag, 'shown'));
         assert.isTrue(elementContains(frag, attrVal.args[0]));
-        assert.isTrue(elementContains(frag, attrVal.args[1]));
     });
 });
 
@@ -151,6 +145,5 @@ describe('data-rad-functionrunner-fragment-hidden modifies HTML properly', funct
     it('working', function() {
         assert.isTrue(elementContains(frag, 'hidden'));
         assert.isTrue(elementContains(frag, attrVal.args[0]));
-        assert.isTrue(elementContains(frag, attrVal.args[1]));
     });
 });

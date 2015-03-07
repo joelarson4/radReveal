@@ -136,10 +136,11 @@ RadReveal.initialize();
 
 <section>
     <h2>Beyond <code>initialize</code></h2>
-    <p>You can provide RadReveal <code>attributeEventListeners</code> to define an attribute listener function for your add-on.</p>
+    <p>You can provide RadReveal attribute event listeners to define an attribute listener function for your add-on.</p>
     <ul>
         <li class="fragment">Listener functions are only called for slides or fragments that have specific attributes.</li>
         <li class="fragment">and only when specific events occur</li>
+        <li class="fragment">You register them with <code>RadReveal.on(attribute, eventName, function)</code></li>
     </ul>
 </section>
 
@@ -168,8 +169,8 @@ RadReveal.initialize();
     <h2>Beyond <code>initialize</code></h2>
     <p>The listener function is called with four arguments:</p>
     <ul>
-        <li class="fragment"><code>attrVal</code>, the value of the attribute for this slide.</li>
-        <li class="fragment"><code>slideObj</code>, an object representing the slide.</li>
+        <li class="fragment"><code>attrVal</code>, the value of the attribute for this slide or fragment.</li>
+        <li class="fragment"><code>slideObj</code>, an object representing the slide or fragment.</li>
         <li class="fragment"><code>event</code>, the event object.</li>
         <li class="fragment"><code>radEventName</code>, the name of the event.</li>
     </ul>
@@ -187,7 +188,7 @@ RadReveal.initialize();
     slideObj.element.className += ' ' + attrVal;
   }
 
-  RadReveal.on('data-rad-example', 'setup', addTheClass);
+  RadReveal.on('data-rad-example', 'load', addTheClass);
 }());</code></pre>
 </section>
 
@@ -210,15 +211,9 @@ RadReveal.initialize();
 <section>
     <h2>When arriving at a slide</h2>
     <p>If you wanted to run a function upon showing or hiding a slide with a specific attribute, you could do this:</p>
-    <pre><code>require('rad-require').register({
-  name: 'example',
-  attributeEventListeners: {
-    'data-rad-example': {
-      shown: anotherFunction,
-      hidden: andAnotherFunction
-    }
-  }
-});</code></pre>
+    <pre><code>
+  RadReveal.on('data-rad-example', 'show, hide', doSomething);
+    </code></pre>
 </section>
 
 <section>
@@ -235,8 +230,8 @@ RadReveal.initialize();
 </section>
 
 <section data-rad-functionrunner-load='{ "root" : "bar", "func" : "baz" }'>
-    <h2>Run something on <code>setup</code></h2>
-    <p>This slide has a <code>data-rad-functionrunner</code> attr:</p>
+    <h2>Run something on <code>load</code></h2>
+    <p>This slide has a <code>data-rad-functionrunner-load</code> attr:</p>
     <pre><code>&lt;section data-rad-functionrunner-load='{"root":"bar","func":"baz"}'&gt;</code></pre>
     <p>and the page has a (global) <code>bar</code> object defined:</p>
     <pre><code>var bar = {
@@ -250,26 +245,26 @@ RadReveal.initialize();
     <p>which together results in the text being added to the slide:</p>
 </section>
 
-<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "2"] }' >
+<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["1"] }' >
     <h2>Run when slide is <code>shown</code></h2>
     <p>This slide has a <code>data-rad-functionrunner-shown</code> attr:</p>
     <pre><code>&lt;section 
-  data-rad-functionrunner-shown='{"func":"foo","args":["shown","2"]}'&gt;</code></pre>
-                    <p>and the page has a (global) function <code>foo</code> defined:</p>
-                    <pre><code>function foo(arg0, arg1, slideObj, event, radEventName) {
+  data-rad-functionrunner-shown='{"func":"foo","args":["shown","1"]}'&gt;</code></pre>
+    <p>and the page has a (global) function <code>foo</code> defined:</p>
+    <pre><code>function foo(arg0, slideObj, event, radEventName) {
   var span = document.createElement('span');
-  span.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1 + '; ';
+  span.innerHTML =  radEventName + ' with ' + arg0;
   slideObj.element.appendChild(span);
 }</code></pre>
     <p>which results in appending some HTML to the slide every time it is displayed:</p>
 </section>
 
-<section data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "3"] }' >
+<section data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["2"] }' >
     <h2>Run when slide is <code>hidden</code></h2>
     <p>This slide has a <code>data-rad-functionrunner-hidden</code> attr:</p>
     <pre><code>&lt;section 
-  data-rad-functionrunner-hidden='{"func":"foo","args":["hidden", "3"]}'&gt;</code></pre>
-    <p>and you probably remember the <code>foo</code> function from the last slide.</p>
+  data-rad-functionrunner-hidden='{"func":"foo","args":["2"]}'&gt;</code></pre>
+    <p>and we're still using the <code>foo</code> function.</p>
     <p>If you go to the next slide and then come back, you should see something appended to the page here:</p>
 </section>
 
@@ -279,17 +274,17 @@ RadReveal.initialize();
 </section>
 
 <section>
-    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["load", "inner 1"] }'>
+    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["inner 1"] }'>
         <h2>Inner slide</h2>
         <p>You can use the same attributes on inner/vertical slides (hit the down arrow this time):</p>
     </section>
-    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["load", "inner 2"] }'
-            data-rad-functionrunner-shown='{ "func" : "foo", "args": ["shown", "inner 2"] }'
-            data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["hidden", "inner 2"] }'>
+    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["inner 2"] }'
+            data-rad-functionrunner-shown='{ "func" : "foo", "args": ["inner 2"] }'
+            data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["inner 2"] }'>
         <h2>Second inner slide</h2>
         <p>(down again)</p>
     </section>
-    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["load", "inner 3"] }'>
+    <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["inner 3"] }'>
         <h2>Third inner slide</h2>
         <p>(now go forward/right)</p>
     </section>
@@ -299,15 +294,15 @@ RadReveal.initialize();
     <h2>Fragment support</h2>
     <p>The first fragment on this slide has these attributes:</p>
     <pre><code class="smaller">&lt;li class="fragment" 
-  data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["load", "5"] }'
-  data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
-  data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'&gt;</code></pre>
+  data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["3"] }'
+  data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["3"] }'
+  data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["3"] }'&gt;</code></pre>
     <p>You will see the results as you proceed:</p>
     <ul>
         <li class="fragment" 
-            data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["load", "5"] }'
-            data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["shown", "5"] }'
-            data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["hidden", "5"] }'>
+            data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["3"] }'
+            data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["3"] }'
+            data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["3"] }'>
             First item</li>
         <li class="fragment">Second item - now go back twice and then forward.</li>
         <li class="fragment">Last item</li>
@@ -345,10 +340,10 @@ RadReveal.initialize();
 
         <script>
             //simple demo functions to trigger via attribute with functionRunner
-            function foo(arg0, arg1, slideObj, event, radEventName) {
+            function foo(arg0, slideObj, event, radEventName) {
                 var ele = document.createElement('span');
                 ele.className = 'functionRunnerAdded';
-                ele.innerHTML =  radEventName + ': ' + arg0 + ' at ' + arg1;
+                ele.innerHTML =  radEventName + ' with ' + arg0;
                 slideObj.element.appendChild(ele);
             }
 

@@ -24,7 +24,6 @@ var allSlideElements; //all 'section' elements
 var allSlideObjs = []; //the rad objects created for slides
 var currentSlideObj;
 var currentFragObj;
-var onInit = [];
 
 function register(name, initialize) {
     for(var di = 0, dlen = config.dependencies.length; di < dlen; di++) {
@@ -43,9 +42,14 @@ function register(name, initialize) {
  * @private
  */
 function registerAttributeEventHandler(attrName, events, handler) {
+    if(typeof events == 'string') {
+        events = events.split(',');
+    }
+    
     var slidesWithAttr = Array.prototype.slice.apply(document.querySelectorAll('section[' + attrName + ']'));
     var fragsWithAttr = Array.prototype.slice.apply(document.querySelectorAll('.fragment[' + attrName + ']'));
-    slidesWithAttr.concat(fragsWithAttr).forEach(function(eleElement) {
+    var eleWithAttr = slidesWithAttr.concat(fragsWithAttr);
+    eleWithAttr.forEach(function(eleElement) {
         var indexAttr;
         var level;
         if(eleElement.tagName == 'SECTION') {
@@ -69,18 +73,12 @@ function registerAttributeEventHandler(attrName, events, handler) {
         } 
         var attrVal = eleElement.getAttribute(attrName);
 
-        var eventNames = events.split(',');
-        eventNames.forEach(function(eventName) {
+        events.forEach(function(eventName) {
             eventName = eventName.trim();
-            
+
             //run 'load' immediately
             if(eventName == 'load') {
                 handler(attrVal, eleObj, { type: 'rad' }, eventName);
-            }
-
-            //add init to onInit queue
-            if(eventName == 'init') {
-                onInit.push(handlerClosure(handler, attrVal, eleObj, eventName));
             }
 
             //add shown to element's onShown list
@@ -120,7 +118,6 @@ function slideSetup(slideElement, si) {
         lastSlideObj: null, //the slide we left to get to current slide
         onShown: [],
         onHidden: [],
-        onInit: [],
         data: {}
     };
     slideElement.setAttribute('data-rad-main-slide-index', si + '');
@@ -143,6 +140,7 @@ function fragSetup(slideObj, fragElement, fi) {
     var fragObj = {
         index: fi,
         element: fragElement,
+        slideObj: slideObj,
         nextFragObj: null,
         prevFragObj: prevFragObj,
         onShown: [],
@@ -237,10 +235,6 @@ function initialize() {
 
     Reveal.addEventListener('fragmentshown', fragShownHandler);
     Reveal.addEventListener('fragmenthidden', fragHiddenHandler);
-
-    onInit.forEach(function(handlerClosure) {
-        handlerClosure({ type: 'rad' });
-    });
 }
 
 /**
