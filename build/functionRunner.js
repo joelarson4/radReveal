@@ -1,6 +1,6 @@
 /*!
- * radReveal
- * http://joelarson4.github.io/radReveal
+ * radReveal functionRunner
+ * http://joelarson4.github.io/radReveal/functionRunner.md
  * MIT licensed
  *
  * Copyright (C) 2015 Joe Larson
@@ -10,7 +10,15 @@
  * @overview
  * An example RadReveal add-on which runs functions based on attributes added to slides.  
  *
- * Note that this is not a true require module, you cannot import it.
+ * This is not a true CommonJS module, you cannot `require()` it.  It should be loaded as a Reveal.js dependency.
+ *
+ *```javascript
+ * Reveal.initialize({
+ *    ...
+ *    dependencies: [
+ *        { src: '<some path>/functionRunner.min.js', radName: 'functionRunner' }
+ *    ...
+ *```
  *
  * ##Attribute values
  * All attributes support a value which is a JSON string.  This JSON string should describe an object which supports the following properties:
@@ -61,21 +69,21 @@
  * This will call `bar.bazz("1", "abc", radObj, event, radEventName)` when the fragment is shown.
  *
  *
- * @module FunctionRunner
+ * @module functionRunner
  */
 (function() {
     'use strict';
 
-    var config = {};
+    var RadReveal = require('rad-reveal');
+    var config = null;
 
     function initialize(inputConfig, allSlideObjs) {
         config = inputConfig || {};
 
         if(config.fillSlides) {
-            ['setup', 'arriving', 'leaving'].forEach(function(eventName) {
-                if(!config.fillSlides[eventName]) return;
-                var attrName = 'data-rad-functionrunner-' + eventName;
-                var attrVal = config.fillSlides[eventName];
+            Object.keys(config.fillSlides).forEach(function(attrSuffix) {
+                var attrName = 'data-rad-functionrunner-' + attrSuffix;
+                var attrVal = config.fillSlides[attrSuffix];
                 if(typeof attrVal !== 'string') attrVal = JSON.stringify(attrVal);
                 allSlideObjs.forEach(function(slideObj) {
                     if(!slideObj.element.hasAttribute(attrName)) {
@@ -86,6 +94,10 @@
         }
     }
 
+    /** 
+     * Runs function specified by attribute.  See main module doco for details
+     * @private
+     */
     function runner(attrVal, radObj, event, radEventName) {
         try {
             var opts = JSON.parse(attrVal);
@@ -116,28 +128,11 @@
         }
     }
 
-    require('rad-reveal').register({
-        name: 'functionRunner',
-        initialize: initialize,
-        attributeEventListeners: {
-            'data-rad-functionrunner-setup': {
-                setup: runner
-            },
-            'data-rad-functionrunner-shown': {
-                shown: runner
-            },
-            'data-rad-functionrunner-hidden': {
-                hidden: runner
-            },
-            'data-rad-functionrunner-fragment-setup': {
-                fragmentSetup: runner
-            },
-            'data-rad-functionrunner-fragment-shown': {
-                fragmentShown: runner
-            },
-            'data-rad-functionrunner-fragment-hidden': {
-                fragmentHidden: runner
-            }
-        }
-    });
+    RadReveal.register('functionRunner', initialize);
+    RadReveal.on('data-rad-functionrunner-load', 'load', runner);
+    RadReveal.on('data-rad-functionrunner-shown', 'shown', runner);
+    RadReveal.on('data-rad-functionrunner-hidden', 'hidden', runner);
+    RadReveal.on('data-rad-functionrunner-fragment-load', 'load', runner);
+    RadReveal.on('data-rad-functionrunner-fragment-shown', 'shown', runner);
+    RadReveal.on('data-rad-functionrunner-fragment-hidden', 'hidden', runner);
 }());
