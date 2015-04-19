@@ -81,12 +81,12 @@ function registerAttributeEventHandler(attrName, events, handler) {
             }
 
             //add shown to element's onShown list
-            if(eventName == 'shown') {
+            if(eventName == 'show') {
                 eleObj.onShown.push(handlerClosure(handler, attrVal, eleObj, eventName));
             }
 
             //add hidden to element's onShown list
-            if(eventName == 'hidden') {
+            if(eventName == 'hide') {
                 eleObj.onHidden.push(handlerClosure(handler, attrVal, eleObj, eventName));
             }
         });

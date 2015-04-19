@@ -160,8 +160,8 @@ RadReveal.initialize();
     <ul>
         <li><code>load</code> is fired when the add-on is loaded.</li>
         <li><code>init</code> is fired when <code>RadReveal.initialize</code> is called.</li>
-        <li><code>shown</code> is fired when the matching slide or fragment is displayed.</li>
-        <li><code>hidden</code> is fired when the matching slide or fragment is hidden.</li>
+        <li><code>show</code> is fired when the matching slide or fragment is displayed.</li>
+        <li><code>hide</code> is fired when the matching slide or fragment is hidden.</li>
     </ul>
 </section>
 
@@ -245,11 +245,11 @@ RadReveal.initialize();
     <p>which together results in the text being added to the slide:</p>
 </section>
 
-<section data-rad-functionrunner-shown='{ "func" : "foo", "args": ["1"] }' >
-    <h2>Run when slide is <code>shown</code></h2>
-    <p>This slide has a <code>data-rad-functionrunner-shown</code> attr:</p>
+<section data-rad-functionrunner-show='{ "func" : "foo", "args": ["1"] }' >
+    <h2>Run when slide is shown</h2>
+    <p>This slide has a <code>data-rad-functionrunner-show</code> attr:</p>
     <pre><code>&lt;section 
-  data-rad-functionrunner-shown='{"func":"foo","args":["shown","1"]}'&gt;</code></pre>
+  data-rad-functionrunner-show='{"func":"foo","args":["show","1"]}'&gt;</code></pre>
     <p>and the page has a (global) function <code>foo</code> defined:</p>
     <pre><code>function foo(arg0, slideObj, event, radEventName) {
   var span = document.createElement('span');
@@ -259,11 +259,11 @@ RadReveal.initialize();
     <p>which results in appending some HTML to the slide every time it is displayed:</p>
 </section>
 
-<section data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["2"] }' >
-    <h2>Run when slide is <code>hidden</code></h2>
-    <p>This slide has a <code>data-rad-functionrunner-hidden</code> attr:</p>
+<section data-rad-functionrunner-hide='{ "func" : "foo", "args": ["2"] }' >
+    <h2>Run when slide is hidden</h2>
+    <p>This slide has a <code>data-rad-functionrunner-hide</code> attr:</p>
     <pre><code>&lt;section 
-  data-rad-functionrunner-hidden='{"func":"foo","args":["2"]}'&gt;</code></pre>
+  data-rad-functionrunner-hide='{"func":"foo","args":["2"]}'&gt;</code></pre>
     <p>and we're still using the <code>foo</code> function.</p>
     <p>If you go to the next slide and then come back, you should see something appended to the page here:</p>
 </section>
@@ -279,8 +279,8 @@ RadReveal.initialize();
         <p>You can use the same attributes on inner/vertical slides (hit the down arrow this time):</p>
     </section>
     <section data-rad-functionrunner-load='{ "func" : "foo", "args": ["inner 2"] }'
-            data-rad-functionrunner-shown='{ "func" : "foo", "args": ["inner 2"] }'
-            data-rad-functionrunner-hidden='{ "func" : "foo", "args": ["inner 2"] }'>
+            data-rad-functionrunner-show='{ "func" : "foo", "args": ["inner 2"] }'
+            data-rad-functionrunner-hide='{ "func" : "foo", "args": ["inner 2"] }'>
         <h2>Second inner slide</h2>
         <p>(down again)</p>
     </section>
@@ -295,14 +295,14 @@ RadReveal.initialize();
     <p>The first fragment on this slide has these attributes:</p>
     <pre><code class="smaller">&lt;li class="fragment" 
   data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["3"] }'
-  data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["3"] }'
-  data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["3"] }'&gt;</code></pre>
+  data-rad-functionrunner-fragment-show='{ "func" : "foo", "args": ["3"] }'
+  data-rad-functionrunner-fragment-hide='{ "func" : "foo", "args": ["3"] }'&gt;</code></pre>
     <p>You will see the results as you proceed:</p>
     <ul>
         <li class="fragment" 
             data-rad-functionrunner-fragment-load='{ "func" : "foo", "args": ["3"] }'
-            data-rad-functionrunner-fragment-shown='{ "func" : "foo", "args": ["3"] }'
-            data-rad-functionrunner-fragment-hidden='{ "func" : "foo", "args": ["3"] }'>
+            data-rad-functionrunner-fragment-show='{ "func" : "foo", "args": ["3"] }'
+            data-rad-functionrunner-fragment-hide='{ "func" : "foo", "args": ["3"] }'>
             First item</li>
         <li class="fragment">Second item - now go back twice and then forward.</li>
         <li class="fragment">Last item</li>

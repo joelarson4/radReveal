@@ -77,32 +77,32 @@ describe('data-rad-functionrunner-load modifies HTML properly', function() {
 
 });
 
-describe('data-rad-functionrunner-shown modifies HTML properly', function() {
+describe('data-rad-functionrunner-show modifies HTML properly', function() {
     this.timeout(3000);
-    var slide = document.querySelector('[data-rad-functionrunner-shown]');
-    var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-shown'));
+    var slide = document.querySelector('[data-rad-functionrunner-show]');
+    var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-show'));
     var slideOriginalHtml = slide.innerHTML;
 
     navigateTo(slide);
 
     it('working', function() { 
         assert.notEqual(slide.innerHTML, slideOriginalHtml);
-        assert.isTrue(elementContains(slide, 'shown'));
+        assert.isTrue(elementContains(slide, 'show'));
         assert.isTrue(elementContains(slide, attrVal.args[0]));
     });
 });
 
-describe('data-rad-functionrunner-hidden modifies HTML properly', function() {
+describe('data-rad-functionrunner-hide modifies HTML properly', function() {
     this.timeout(3000);
-    var slide = document.querySelector('[data-rad-functionrunner-hidden]');
-    var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-hidden'));
+    var slide = document.querySelector('[data-rad-functionrunner-hide]');
+    var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-hide'));
     var slideIndex = Number(slide.getAttribute('data-rad-main-slide-index'));
     var nextSlide = document.querySelector('[data-rad-main-slide-index="' + (slideIndex + 1) + '"]');
     
     navigateTo(nextSlide);
 
     it('working', function() { 
-        assert.isTrue(elementContains(slide, 'hidden'));
+        assert.isTrue(elementContains(slide, 'hide'));
         assert.isTrue(elementContains(slide, attrVal.args[0]));
     });
 });
@@ -118,32 +118,32 @@ describe('data-rad-functionrunner-fragment-load modifies HTML properly', functio
     });
 });
 
-describe('data-rad-functionrunner-fragment-shown modifies HTML properly', function() {
+describe('data-rad-functionrunner-fragment-show modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-shown]');
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-show]');
     
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-shown'));
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-show'));
     
     navigateTo(frag);
 
     it('working', function() { 
-        assert.isTrue(elementContains(frag, 'shown'));
+        assert.isTrue(elementContains(frag, 'show'));
         assert.isTrue(elementContains(frag, attrVal.args[0]));
     });
 });
 
-describe('data-rad-functionrunner-fragment-hidden modifies HTML properly', function() {
+describe('data-rad-functionrunner-fragment-hide modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-hidden]');
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-hide]');
    
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-hidden'));
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-hide'));
     
     navigateTo(frag, function() {
         Reveal.prevFragment(); //back up one
     });
 
     it('working', function() {
-        assert.isTrue(elementContains(frag, 'hidden'));
+        assert.isTrue(elementContains(frag, 'hide'));
         assert.isTrue(elementContains(frag, attrVal.args[0]));
     });
 });

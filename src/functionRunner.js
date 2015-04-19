@@ -130,9 +130,9 @@
 
     RadReveal.register('functionRunner', initialize);
     RadReveal.on('data-rad-functionrunner-load', 'load', runner);
-    RadReveal.on('data-rad-functionrunner-shown', 'shown', runner);
-    RadReveal.on('data-rad-functionrunner-hidden', 'hidden', runner);
+    RadReveal.on('data-rad-functionrunner-show', 'show', runner);
+    RadReveal.on('data-rad-functionrunner-hide', 'hide', runner);
     RadReveal.on('data-rad-functionrunner-fragment-load', 'load', runner);
-    RadReveal.on('data-rad-functionrunner-fragment-shown', 'shown', runner);
-    RadReveal.on('data-rad-functionrunner-fragment-hidden', 'hidden', runner);
+    RadReveal.on('data-rad-functionrunner-fragment-show', 'show', runner);
+    RadReveal.on('data-rad-functionrunner-fragment-hide', 'hide', runner);
 }());
