@@ -68,7 +68,7 @@ What does an add-on look like?
 <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
 <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
-```
+
 ```javascript
 Reveal.initialize({
   ...normal Reveal configuration goes here
@@ -154,8 +154,8 @@ which is a silly example but illustrates the point.
 You can also register to run something on showing or hiding a slide or fragment that has the attribute.
 
 ```javascript
-RadReveal.on('data-rad-example', 'show', anotherFunction);
-RadReveal.on('data-rad-example', 'hide', andAnotherFunction);
+RadReveal.on('data-rad-example', 'shown', anotherFunction);
+RadReveal.on('data-rad-example', 'hidden', andAnotherFunction);
 ```
 
 This means that `anotherFunction` will run each time a slide or fragment is displayed with a `data-rad-example` attribute, and then when you leave that slide `andAnotherFunction` will run.
