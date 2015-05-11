@@ -3,17 +3,9 @@ RadReveal is a JavaScript library to help you extend [Reveal.js - the HTML Prese
 
 Check out the [demo slideshow](http://joelarson4.github.io/radReveal/demo.html) to see how RadReveal works.
 
-##Currently available add-ons
-I've published three add-ons so far, and more are on the way:
+Also, take a look at the [currently available add-ons](#currently-available-add-ons) you can use.
 
-* [functionRunner](#the-functionrunner-example-add-on) helps you run arbitrary functions when slides are shown, hidden, etc.
-* [rad-randomizer](https://github.com/joelarson4/rad-randomizer) attaches seeded Psuedo Random Number Generators to your slides.
-* [rad-colorizer](https://github.com/joelarson4/rad-colorizer) automatically adds foreground and background colors to your slides.
-
-
-Anyway...
-
-##Why isn't _everybody_ hacking Reveal.js?
+##So why isn't _everybody_ hacking Reveal.js?
 
 [Reveal.js](http://lab.hakim.se/reveal-js/) rocks!  Web Developers seem to love Reveal.js, as evidenced by the fact that every other presentation on JavaScript seems to use it.  Personally, I love Reveal.js because it is hackable.
 
@@ -32,6 +24,13 @@ RadReveal provides these benefits.
 * Encourages small, shareable packages.
 
 If you didn't already, <a href="http://joelarson4.github.io/radReveal/demo.html#/">take a look at the demo slideshow</a> to see RadReveal in action.
+
+##Currently available add-ons
+I've published three add-ons so far, and more are on the way:
+
+* [functionRunner](#the-functionrunner-example-add-on) helps you run arbitrary functions when slides are shown, hidden, etc.
+* [rad-randomizer](https://github.com/joelarson4/rad-randomizer) attaches seeded Psuedo Random Number Generators to your slides.
+* [rad-colorizer](https://github.com/joelarson4/rad-colorizer) automatically adds foreground and background colors to your slides.
 
 #How to create a RadReveal add-on
 
