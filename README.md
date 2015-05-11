@@ -6,7 +6,7 @@ Check out the [demo slideshow](http://joelarson4.github.io/radReveal/demo.html) 
 ##Currently available add-ons
 I've published three add-ons so far, and more are on the way:
 
-* [functionRunner](#FunctionRunner) helps you run arbitrary functions when slides are shown, hidden, etc.
+* [functionRunner](#the-functionrunner-example-add-on) helps you run arbitrary functions when slides are shown, hidden, etc.
 * [rad-randomizer](https://github.com/joelarson4/rad-randomizer) is for attaching seeded Psuedo Random Number Generators to your slides.
 * [rad-colorizer](https://github.com/joelarson4/rad-colorizer) automatically adds foreground and background colors to your slides.
 
@@ -200,7 +200,7 @@ For fragments, these are the properties:
 
 Please *do* *not* modify the slide or fragment object or any of it's properties directly *except* for the `data` property.
 
-#FunctionRunner example add-on.
+#The functionRunner example add-on.
 
 The core RadReveal repo includes `functionRunner`, a simple add-on that triggers a function to run for any slide with a `data-rad-functionrunner-{eventName}` attribute. 
 There is also [API documentation for functionRunner](https://github.com/joelarson4/radReveal/blob/master/functionRunner.md).
