@@ -3,6 +3,16 @@ RadReveal is a JavaScript library to help you extend [Reveal.js - the HTML Prese
 
 Check out the [demo slideshow](http://joelarson4.github.io/radReveal/demo.html) to see how RadReveal works.
 
+##Currently available add-ons
+I've published three add-ons so far, and more are on the way:
+
+* [functionRunner](#FunctionRunner) helps you run arbitrary functions when slides are shown, hidden, etc.
+* [rad-randomizer](https://github.com/joelarson4/rad-randomizer) is for attaching seeded Psuedo Random Number Generators to your slides.
+* [rad-colorizer](https://github.com/joelarson4/rad-colorizer) automatically adds foreground and background colors to your slides.
+
+
+Anyway...
+
 ##Why isn't _everybody_ hacking Reveal.js?
 
 [Reveal.js](http://lab.hakim.se/reveal-js/) rocks!  Web Developers seem to love Reveal.js, as evidenced by the fact that every other presentation on JavaScript seems to use it.  Personally, I love Reveal.js because it is hackable.
@@ -46,7 +56,7 @@ You may want to to skip to [the API documentation for the library](https://githu
 
 What does an add-on look like?
 
-`example.js` - the addon script:
+`example.js` - the add-on script:
 
 ```javascript
 (function() { 
@@ -190,7 +200,7 @@ For fragments, these are the properties:
 
 Please *do* *not* modify the slide or fragment object or any of it's properties directly *except* for the `data` property.
 
-##The functionRunner example add-on.
+#FunctionRunner example add-on.
 
 The core RadReveal repo includes `functionRunner`, a simple add-on that triggers a function to run for any slide with a `data-rad-functionrunner-{eventName}` attribute. 
 There is also [API documentation for functionRunner](https://github.com/joelarson4/radReveal/blob/master/functionRunner.md).
@@ -247,12 +257,12 @@ I need to put more effort into formalizing my policy and approach on this, as we
 
 I am making an assumption that devs using Reveal.js are able to keep fairly up to date with browsers.  I realize this limits slide-sharing capabilities but I think that's a tradeoff worth making.  I'm also very open to help figuring out a better approach.  Please feel free to file an issue and tell me why I'm wrong and what I can do better!
 
-##More addons coming
+##More add-ons coming
 
-* I have a several other addons in prototype that I will clean up and release (as separate repos) soon.
+* I have a several other add-ons in prototype that I will clean up and release (as separate repos) soon.
 * I will list these on main RadReveal README.
 * And hopefully remember to update this slide!
 
 ##Please write your own add-ons!
 
-The dream would be a tiny ecosystem of well written addons that folks can use to make **rad** presentations.
+The dream would be a tiny ecosystem of well written add-ons that folks can use to make **rad** presentations.
