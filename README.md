@@ -77,6 +77,7 @@ What does an add-on look like?
 <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
 <script src="node_modules/reveal.js/js/reveal.js"></script>
 <script src="node_modules/rad-reveal/build/radReveal.min.js"></script>
+```
 
 ```javascript
 Reveal.initialize({
