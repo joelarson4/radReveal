@@ -7,7 +7,7 @@ Check out the [demo slideshow](http://joelarson4.github.io/radReveal/demo.html) 
 I've published three add-ons so far, and more are on the way:
 
 * [functionRunner](#the-functionrunner-example-add-on) helps you run arbitrary functions when slides are shown, hidden, etc.
-* [rad-randomizer](https://github.com/joelarson4/rad-randomizer) is for attaching seeded Psuedo Random Number Generators to your slides.
+* [rad-randomizer](https://github.com/joelarson4/rad-randomizer) attaches seeded Psuedo Random Number Generators to your slides.
 * [rad-colorizer](https://github.com/joelarson4/rad-colorizer) automatically adds foreground and background colors to your slides.
 
 
