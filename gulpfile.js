@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
 var shell = require('gulp-shell');
 var jshint = require('gulp-jshint');
+var bump = require('gulp-bump');
 var del = require('del');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var browserify = require('browserify');
@@ -72,3 +73,22 @@ gulp.task('build-functionRunner', function() {
 });
 
 gulp.task('test', test);
+
+gulp.task('bump', function(){
+    return gulp.src('./package.json')
+        .pipe(bump())
+        .pipe(gulp.dest('./'));
+});
+
+gulp.task('version', ['bump'], function() {
+    var version = require('./package.json').version;
+    
+    var exec = require('child_process').exec;
+    exec('git tag v' + version, function (error, stdout, stderr) {
+        if(error) { console.log(error); return; }  
+        exec('git add package.json; git commit --m \'Bumping to ' + version + '\'', function (error, stdout, stderr) {
+            if(error) { console.log(error); return; } 
+            console.log('Version now at ' + version);
+        });
+    });
+});
