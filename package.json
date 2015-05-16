@@ -1,6 +1,6 @@
 {
   "name": "rad-reveal",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A JavaScript library to help you extend Reveal.js, the HTML Presentation Framework",
   "main": "build/radReveal",
   "repository": {
@@ -11,6 +11,7 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "gulp-bump": "^0.3.0",
     "reveal.js": "3.0.0"
   },
   "devDependencies": {
