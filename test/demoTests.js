@@ -133,7 +133,7 @@ describe('Rad API', function() { //TODO: split into multiple describe calls
 describe('functionRunner fillSlides fills all slides with load attr', function() {
     it('working', function() { 
         //fillSlides should mean all sections have this attribute
-        assert.equal(document.querySelectorAll('section').length, document.querySelectorAll('[data-rad-functionrunner-load]').length);
+        assert.equal(document.querySelectorAll('section').length, document.querySelectorAll('section[data-rad-functionrunner-load]').length);
 
         var filledSlide = document.querySelector('[data-testing-functionrunner-fillslides="true"]');
         assert.isObject(filledSlide);
@@ -161,7 +161,7 @@ describe('data-rad-functionrunner-load modifies HTML properly', function() {
 
 describe('data-rad-functionrunner-show modifies HTML properly', function() {
     this.timeout(3000);
-    var slide = document.querySelector('[data-rad-functionrunner-show]');
+    var slide = document.querySelector('section[data-rad-functionrunner-show]');
     var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-show'));
     var slideOriginalHtml = slide.innerHTML;
 
@@ -176,7 +176,7 @@ describe('data-rad-functionrunner-show modifies HTML properly', function() {
 
 describe('data-rad-functionrunner-hide modifies HTML properly', function() {
     this.timeout(3000);
-    var slide = document.querySelector('[data-rad-functionrunner-hide]');
+    var slide = document.querySelector('section[data-rad-functionrunner-hide]');
     var attrVal = JSON.parse(slide.getAttribute('data-rad-functionrunner-hide'));
     var slideIndex = Number(slide.getAttribute('data-rad-main-slide-index'));
     var nextSlide = document.querySelector('[data-rad-main-slide-index="' + (slideIndex + 1) + '"]');
@@ -189,10 +189,10 @@ describe('data-rad-functionrunner-hide modifies HTML properly', function() {
     });
 });
 
-describe('data-rad-functionrunner-fragment-load modifies HTML properly', function() {
+describe('fragment data-rad-functionrunner-load modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-load]');
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-load'));
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-load]');
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-load'));
     
     it('working', function() { 
         assert.isTrue(elementContains(frag, 'load'));
@@ -200,11 +200,11 @@ describe('data-rad-functionrunner-fragment-load modifies HTML properly', functio
     });
 });
 
-describe('data-rad-functionrunner-fragment-show modifies HTML properly', function() {
+describe('fragment data-rad-functionrunner-show modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-show]');
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-show]');
     
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-show'));
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-show'));
     
     navigateTo(frag);
 
@@ -214,11 +214,11 @@ describe('data-rad-functionrunner-fragment-show modifies HTML properly', functio
     });
 });
 
-describe('data-rad-functionrunner-fragment-hide modifies HTML properly', function() {
+describe('fragment data-rad-functionrunner-hide modifies HTML properly', function() {
     this.timeout(3000);
-    var frag = document.querySelector('.fragment[data-rad-functionrunner-fragment-hide]');
+    var frag = document.querySelector('.fragment[data-rad-functionrunner-hide]');
    
-    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-fragment-hide'));
+    var attrVal = JSON.parse(frag.getAttribute('data-rad-functionrunner-hide'));
     
     navigateTo(frag, function() {
         Reveal.prevFragment(); //back up one

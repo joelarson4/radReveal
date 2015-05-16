@@ -86,7 +86,7 @@ gulp.task('version', ['bump'], function() {
     var exec = require('child_process').exec;
     exec('git tag v' + version, function (error, stdout, stderr) {
         if(error) { console.log(error); return; }  
-        exec('git add package.json; git commit --m \'Bumping to ' + version + '\'', function (error, stdout, stderr) {
+        exec('git add package.json; git commit --m \'Bumping version to ' + version + '\'', function (error, stdout, stderr) {
             if(error) { console.log(error); return; } 
             console.log('Version now at ' + version);
         });

@@ -39,7 +39,7 @@
  * Note that if the function is not found you will get a console error, but everything else should keep working.
  *
  * ##Attributes supported
- * Attributes for slides (`section` elements):
+ * Attributes for slides or fragments
  *
  * `data-rad-functionrunner-setup` runs the designated function at start up
  *
@@ -47,24 +47,13 @@
  *
  * `data-rad-functionrunner-hidden` runs the designated function when a slide is hidden
  *
- *
- * Attributes for fragments (elements with `fragment` class):
- *
- * `data-rad-functionrunner-fragment-setup` runs the designated function at start up
- *
- * `data-rad-functionrunner-fragment-shown` runs the designated function when a fragment is shown
- *
- * `data-rad-functionrunner-fragment-hidden` runs the designated function when a fragment is hidden
- *
- * 
  * ##Examples
  *
  * `<section data-rad-functionrunner-setup='{ "func": "foo" }'>`
  *
  * This will call a function named `foo` if found in global namespace at startup.
  *
- *
- * `<section data-rad-functionrunner-fragment-shown='{ "root": "bar", "func": "bazz", "args" : [ "1", "abc" ] }'>`
+ * `<li class="fragment" data-rad-functionrunner-shown='{ "root": "bar", "func": "bazz", "args" : [ "1", "abc" ] }'>`
  *
  * This will call `bar.bazz("1", "abc", radObj, event, radEventName)` when the fragment is shown.
  *
@@ -129,5 +118,7 @@
     }
 
     RadReveal.register('functionRunner', initialize);
-    RadReveal.on('data-rad-functionrunner-*', 'load,show,hide', runner);
+    RadReveal.on('data-rad-functionrunner-load', 'load', runner);
+    RadReveal.on('data-rad-functionrunner-show', 'show', runner);
+    RadReveal.on('data-rad-functionrunner-hide', 'hide', runner);
 }());
