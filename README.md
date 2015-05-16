@@ -170,6 +170,30 @@ RadReveal.on('data-rad-example', 'hidden', andAnotherFunction);
 
 This means that `anotherFunction` will run each time a slide or fragment is displayed with a `data-rad-example` attribute, and then when you leave that slide `andAnotherFunction` will run.
 
+##Registering for multiple attributes, events, and/or handlers
+
+Each of the three arguments to `RadReveal.on` can be supplied as arrays:
+
+```javascript
+RadReveal.on(['data-rad-example', 'data-rad-another'], ['load', 'shown'], [ anotherFunction, andAnotherFunction] );
+```
+
+This will cause those two handler functions to be run on both `load` and `shown` events for any slide or fragment elements with `data-rad-example` or `data-rad-another` attributes.
+
+You can also supply the attribute name with an asterisk at the end to select all matching attributes that start with whatever comes before the asterisk.
+
+```javascript
+RadReveal.on('data-rad-example*', 'load', anotherFunction);
+```
+
+That would match on elements with `data-rad-example` or `data-rad-example-whatever`.
+
+Finally, multiple attribute names or event names can be supplied as a single string that are seperated by commas:
+
+```javascript
+RadReveal.on('data-rad-example, data-rad-another', 'load', shown', anotherFunction);
+```
+
 ##All supported events
 
 These events can be used for `attributeEventListeners`, fired for every slide or fragment with the specified attribute:

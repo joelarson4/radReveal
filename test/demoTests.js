@@ -4,7 +4,7 @@
  */
 
 //tests
-describe('Rad startup', function() {
+describe('Rad API', function() { //TODO: split into multiple describe calls
     it('RadReveal is require-able and exists with initialize function', function() { 
         var RadReveal = require('rad-reveal');
         assert.isObject(RadReveal); 
@@ -44,6 +44,88 @@ describe('Rad startup', function() {
         assert.isArray(RadReveal.getSlideObjects()); 
         assert.isTrue(RadReveal.getSlideObjects().length === document.querySelectorAll('section').length);
     });
+
+    it('RadReveal.on respects array parms', function() {
+        var RadReveal = require('rad-reveal');
+        var attrNameArray = ['data-rad-functionrunner-load', 'data-rad-functionrunner-show', 'data-rad-functionrunner-hide'];
+        var attrMatchCount = 0;
+        attrNameArray.forEach(function(attrName) {
+            attrMatchCount+= document.querySelectorAll('section[' + attrName + ']').length;
+            attrMatchCount+= document.querySelectorAll('.fragment[' + attrName + ']').length;
+        });
+        var eventNameArray = ['load', 'load', 'load'];
+
+        var actualCalls = 0;
+
+        function handler() { actualCalls++; }
+        var handlerArray = [handler, handler, handler];
+
+        RadReveal.on(attrNameArray, eventNameArray, handlerArray);
+
+        var expectedCalls = attrMatchCount * eventNameArray.length * handlerArray.length;
+        assert.equal(actualCalls, expectedCalls, 'Handler is called expected number of times for array arguments to RadReveal.on');
+    });
+
+    it('RadReveal.on respects CSV parms', function() {
+        var RadReveal = require('rad-reveal');
+        var attrNameArray = ['data-rad-functionrunner-load', 'data-rad-functionrunner-show', 'data-rad-functionrunner-hide'];
+        var attrMatchCount = 0;
+        attrNameArray.forEach(function(attrName) {
+            attrMatchCount+= document.querySelectorAll('section[' + attrName + ']').length;
+            attrMatchCount+= document.querySelectorAll('.fragment[' + attrName + ']').length;
+        });
+        var eventNameArray = ['load', 'load', 'load'];
+
+        var actualCalls = 0;
+
+        function handler() { actualCalls++; }
+
+        RadReveal.on(attrNameArray.join(', '), eventNameArray.join(', '), handler);
+
+        var expectedCalls = attrMatchCount * eventNameArray.length;
+        assert.equal(actualCalls, expectedCalls, 'Handler is called expected number of times for CSV arguments to RadReveal.on');
+    });
+
+    it('RadReveal.on respects single parms', function() {
+        var RadReveal = require('rad-reveal');
+        var attrName = 'data-rad-functionrunner-load';
+        var attrMatchCount = 0;
+        attrMatchCount+= document.querySelectorAll('section[' + attrName + ']').length;
+        attrMatchCount+= document.querySelectorAll('.fragment[' + attrName + ']').length;
+
+        var actualCalls = 0;
+
+        function handler() { actualCalls++; }
+
+        RadReveal.on(attrName, 'load', handler);
+
+        assert.equal(actualCalls, attrMatchCount, 'Handler is called expected number of times for single arguments to RadReveal.on');
+    });
+
+    it('RadReveal.on respects asterisk attr name', function() {
+        var RadReveal = require('rad-reveal');
+        var attrNamePrefix = 'data-rad-functionrunner-';
+        var attrMatchCount = 0;
+        var elements = Array.prototype.slice.apply(document.querySelectorAll('section'));
+        elements = elements.concat(Array.prototype.slice.apply(document.querySelectorAll('.fragment')));
+        elements.slice(document.querySelectorAll('section')).forEach(function(ele) {
+            var attrArray = Array.prototype.slice.apply(ele.attributes);
+            attrArray.forEach(function(attr) {
+                if(attr.specified && attr.name.indexOf(attrNamePrefix) > -1) {
+                    attrMatchCount++;
+                }
+            });
+        })
+
+        var actualCalls = 0;
+
+        function handler() { actualCalls++; }
+
+        RadReveal.on(attrNamePrefix + '*', 'load', handler);
+
+        assert.equal(actualCalls, attrMatchCount, 'Handler is called expected number of times for asterisk attrName to RadReveal.on');
+    });
+
 
 });
 

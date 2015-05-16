@@ -24,6 +24,7 @@ var allSlideElements; //all 'section' elements
 var allSlideObjs = []; //the rad objects created for slides
 var currentSlideObj;
 var currentFragObj;
+var allFragElements;
 
 function register(name, initialize) {
     for(var di = 0, dlen = config.dependencies.length; di < dlen; di++) {
@@ -34,18 +35,72 @@ function register(name, initialize) {
 }
 
 /** 
- * Registers specific event handlers for attributes.  The handler is called after all addons are initialized.
- * Behavior varies slightly whether the level is 'section' or 'fragment'.
- * @param {string} level - either 'section' or 'fragment'
- * @param {object} addon - addon module being registered
- * @param {string} attrName - the name of the attribute to associate the event with.
- * @private
+ * Registers event handlers for slides with particular attributes. 
+ *
+ * @param {string|array} attrNames - the name or names of the attribute to associate the event with.
+ *     Can be a comma seperated list or array of strings.
+ * @param {string|array} event - the name or names of the rad reveal events to be handled. 
+ *     Can be a comma seperated list or array of strings.
+ * @param {function|array} handlers - the function or functions that will be called.
+ *     Can be a single function or array of functions.
  */
-function registerAttributeEventHandler(attrName, events, handler) {
+function on(attrNames, events, handlers) {
+    if(typeof attrNames == 'string') {
+        attrNames = attrNames.split(','); //now s/be an array
+    }
+
     if(typeof events == 'string') {
         events = events.split(',');
     }
-    
+
+    if(!Array.isArray(handlers)) {
+        handlers = [handlers];
+    }
+
+    var attrNameArray = [];
+    attrNames.forEach(function(attrNameItem) {
+        attrNameItem = attrNameItem.trim();
+        var asteriskIndex = attrNameItem.indexOf('*');
+        if(asteriskIndex > -1) {
+            var attrNameResolved = resolveAttributes(attrNameItem.substring(0,asteriskIndex));
+            Array.prototype.push.apply(attrNameArray, attrNameResolved);
+        } else {
+            attrNameArray.push(attrNameItem);
+        }
+    });
+
+    attrNameArray.forEach(function(attrNameItem) {
+        handlers.forEach(function(handlerItem) {
+            registerAttributeEventHandler(attrNameItem, events, handlerItem);
+        });
+    });
+}
+
+function resolveAttributes(attrNamePrefix) {
+    var attrNamesFound = {};
+    var checkElements = Array.prototype.concat.apply(allSlideElements, allFragElements);
+    checkElements.forEach(function(ele) { 
+        var attrArray = Array.prototype.slice.apply(ele.attributes);
+        attrArray.forEach(function(attr) {
+            if(!attr.specified) { return; }
+            if(attr.name.indexOf(attrNamePrefix) < 0) {
+                return;
+            }
+            attrNamesFound[attr.name] = true;
+        });
+    });
+    return Object.keys(attrNamesFound);
+}
+
+/**
+ * Actually performs registration.
+ *
+ * @param {string} attrName
+ * @param {array} event
+ * @param {function} handler
+ * @private
+ */
+function registerAttributeEventHandler(attrName, events, handler) {    
     var slidesWithAttr = Array.prototype.slice.apply(document.querySelectorAll('section[' + attrName + ']'));
     var fragsWithAttr = Array.prototype.slice.apply(document.querySelectorAll('.fragment[' + attrName + ']'));
     var eleWithAttr = slidesWithAttr.concat(fragsWithAttr);
@@ -225,7 +280,8 @@ function fragHiddenHandler(event) {
 
 
 /** 
- * Gets dependencies settings and registers event handlers.
+ * Retrieves dependencies settings and hooks in base reveal event handlers.  Must be called after
+ * `Reveal.initialize()`.
  */
 function initialize() {
     config = Reveal.getConfig();
@@ -247,10 +303,11 @@ function getSlideObjects() {
 //Must capture the DOM before Reveal.js gets involved.
 allSlideElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal section'));
 allSlideElements.forEach(slideSetup);
+allFragElements = Array.prototype.slice.apply(document.querySelectorAll('.reveal .fragment'));
 
 module.exports = {
     register: register,
-    on: registerAttributeEventHandler,
+    on: on,
     initialize: initialize,
     getSlideObjects: getSlideObjects
 };
