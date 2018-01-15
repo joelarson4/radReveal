@@ -1,3 +1,6 @@
+Deprecated - I am not planning on doing any more work on this project.  If you'd like to take it over, ping me!
+----
+
 #RadReveal [![Build Status](https://travis-ci.org/joelarson4/radReveal.svg)](https://travis-ci.org/joelarson4/radReveal)
 RadReveal is a JavaScript library to help you extend [Reveal.js - the HTML Presentation Framework](http://lab.hakim.se/reveal-js/).
 
